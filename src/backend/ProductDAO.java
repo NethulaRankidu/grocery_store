@@ -3,6 +3,7 @@ package backend;
 import backend.ConnectionManager;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -58,14 +59,7 @@ public Product findProductByBarcode(String barcode) {
 
         ps.setString(1, barcode);
         ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            return new Product(
-                rs.getInt("product_id"),
-                rs.getString("name"),
-                rs.getBigDecimal("unit_price")
-            );
-        }
+        
     } catch (SQLException e) {
         e.printStackTrace();
     }
