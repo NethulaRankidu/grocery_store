@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class ProductDAO {
     // Adding Products
@@ -71,7 +72,8 @@ public class ProductDAO {
 
     public void addCategory(String cat_name) {
         if (cat_name == null || cat_name.trim().isEmpty()) {
-            System.out.println("❌ Category name cannot be empty.");
+            System.out.println("Category name cannot be empty.");
+            JOptionPane.showMessageDialog(null, "Category name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -88,7 +90,8 @@ public class ProductDAO {
                 int count = rs.getInt(1);
 
                 if (count > 0) {
-                    System.out.println("⚠️ Category already exists.");
+                    System.out.println("Category already exists.");
+                    JOptionPane.showMessageDialog(null, "Category already exists.", "Duplicate", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }
@@ -102,17 +105,19 @@ public class ProductDAO {
                     ResultSet keys = insertStmt.getGeneratedKeys();
                     if (keys.next()) {
                         int catId = keys.getInt(1);
-                        System.out.println("✅ Category Successfully Added");
+                        System.out.println("Category Successfully Added");
+                        JOptionPane.showMessageDialog(null, "Category Successfully Added!\nID: " + catId + "\nName: " + cat_name.trim(), "Success", JOptionPane.INFORMATION_MESSAGE);
                         System.out.println("Category ID: " + catId);
                         System.out.println("Category Name: " + cat_name.trim());
                     }
                 } else {
-                    System.out.println("⚠️ No category was added. Something went wrong.");
+                    System.out.println("No category was added. Something went wrong.");
+                    JOptionPane.showMessageDialog(null, "No category was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
