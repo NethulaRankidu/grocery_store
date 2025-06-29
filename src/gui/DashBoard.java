@@ -57,7 +57,7 @@ public class DashBoard extends javax.swing.JFrame {
         Title.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Title.setText("Dashboard");
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Sales");
@@ -186,6 +186,11 @@ public class DashBoard extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton1.setText("Billing");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1);
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -202,6 +207,11 @@ public class DashBoard extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton3.setText("+ Add Category");
         jButton3.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -262,11 +272,35 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        AddProduct product = new AddProduct();
+        product.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        BillingSystem billing = new BillingSystem();
+        billing.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        AddCategory category = new AddCategory();  // or any other JFrame
+        category.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

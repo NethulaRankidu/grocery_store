@@ -8,14 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ProductDAO {
-public void addProduct(String name, String barcode, BigDecimal price) {
-    String sql = "INSERT INTO products(name, barcode, unit_price) VALUES (?, ?, ?)";
+// Adding Products
+public void addProduct(String name, String barcode, Integer price) {
+    String sql = "INSERT INTO products(product_name, product_barcode, category_id) VALUES (?, ?, ?)";
     try (Connection conn = ConnectionManager.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
         ps.setString(1, name);
         ps.setString(2, barcode);
-        ps.setBigDecimal(3, price);
+        ps.setInt(3, price);
 
         int rows = ps.executeUpdate();
         System.out.println(rows + " product(s) added.");
@@ -24,7 +25,8 @@ public void addProduct(String name, String barcode, BigDecimal price) {
     }
 }
 
-public void updatePrice(int productId, BigDecimal newPrice) {
+// Update code to be used later
+/*public void updatePrice(int productId, BigDecimal newPrice) {
     String sql = "UPDATE products SET unit_price = ? WHERE product_id = ?";
     try (Connection conn = ConnectionManager.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -37,7 +39,7 @@ public void updatePrice(int productId, BigDecimal newPrice) {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-}
+}*/
 
 public void deleteProduct(int productId) {
     String sql = "DELETE FROM products WHERE product_id = ?";
@@ -64,6 +66,26 @@ public Product findProductByBarcode(String barcode) {
         e.printStackTrace();
     }
     return null;
+}
+
+public void addCategory(String cat_name) {
+    String sql = "INSERT INTO category(category_name) VALUES (?)";
+    try (Connection conn = ConnectionManager.getConnection();
+            
+        
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, cat_name);
+
+        int rows = ps.executeUpdate();
+        if(true){
+            System.out.println("Category Successfully Added");
+            System.out.println("Category ID: ");
+            System.out.println("Category Name: ");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 }
     public static void main(String[] args) {
 
