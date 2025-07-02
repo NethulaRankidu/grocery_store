@@ -213,6 +213,7 @@ public void loadCategoriesIntoComboBox() {
         
         
         CategoryCombo.removeAllItems();
+        CategoryCombo.addItem(new ComboItem(0, "Select Category"));
         while (rs.next()) {
             int id = rs.getInt("category_id");
             String name = rs.getString("category_name");
