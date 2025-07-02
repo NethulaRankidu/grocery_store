@@ -4,8 +4,15 @@
  */
 package gui;
 
+import backend.ConnectionManager;
 import com.formdev.flatlaf.FlatDarkLaf;
-import backend.ProductDAO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import backend.ComboItem;
+
 
 /**
  *
@@ -18,6 +25,7 @@ public class AddProduct extends javax.swing.JFrame {
      */
     public AddProduct() {
         initComponents();
+        loadCategoriesIntoComboBox();
     }
 
     /**
@@ -85,7 +93,6 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel6.setText("Category");
 
         CategoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CategoryCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
@@ -194,11 +201,34 @@ public class AddProduct extends javax.swing.JFrame {
                 new AddProduct().setVisible(true);
             }
         });
+        
     }
+    
+public void loadCategoriesIntoComboBox() {
+    String sql = "SELECT category_id, category_name FROM category";
+
+    try (Connection conn = ConnectionManager.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        
+        CategoryCombo.removeAllItems();
+        while (rs.next()) {
+            int id = rs.getInt("category_id");
+            String name = rs.getString("category_name");
+            System.out.println("→ " + id + ": " + name);
+            CategoryCombo.addItem(new ComboItem(id, name));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BarcodeBar;
-    private javax.swing.JComboBox<String> CategoryCombo;
+    private javax.swing.JComboBox<ComboItem> CategoryCombo;
     private javax.swing.JTextField ProductNameBar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

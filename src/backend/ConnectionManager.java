@@ -27,7 +27,7 @@ public class ConnectionManager {
             }
 
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/grocery_store?useSSL=false&serverTimezone=UTC",
+                "jdbc:mysql://localhost:3306/grocery_store?useSSL=false&allowPublicKeyRetrieval=true",
                 "root", "123456"
             );
         }
