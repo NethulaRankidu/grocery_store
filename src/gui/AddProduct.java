@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
+import backend.ProductDAO;
 
 
 /**
@@ -170,14 +171,14 @@ public class AddProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
         String productName = ProductNameBar.getText();
         String barcodeId = BarcodeBar.getText();
-        String categoryId = (String) CategoryCombo.getSelectedItem();
+        ComboItem categoryId = (ComboItem) CategoryCombo.getSelectedItem();
         
         System.out.println("Product Name: " + productName);
         System.out.println("Product Barcode: " + barcodeId);
-        System.out.println("Product Category: " + categoryId);
+        System.out.println("Product Category: " + categoryId.getValue());
         
-        /*ProductDAO dao = new ProductDAO();  // class holding above methods
-        dao.addProduct(productName, barcodeId, categoryId);*/
+        ProductDAO dao = new ProductDAO();  // class holding above methods
+        dao.addProduct(productName, barcodeId, categoryId.getValue());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

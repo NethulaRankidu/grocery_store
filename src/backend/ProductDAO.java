@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class ProductDAO {
     // Adding Products
-    public void addProduct(String name, String barcode, Integer price) {
+    /*public void addProduct(String name, String barcode, Integer price) {
         String sql = "INSERT INTO products(product_name, product_barcode, category_id) VALUES (?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -27,7 +27,7 @@ public class ProductDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     // Update code to be used later
     /*public void updatePrice(int productId, BigDecimal newPrice) {
@@ -115,6 +115,68 @@ public class ProductDAO {
                 } else {
                     System.out.println("No category was added. Something went wrong.");
                     JOptionPane.showMessageDialog(null, "No category was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void addProduct(String productName, String barcode, int category) {
+        if (productName == null || productName.trim().isEmpty()) {
+            System.out.println("Product name cannot be empty.");
+            JOptionPane.showMessageDialog(null, "Product name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (barcode == null || barcode.trim().isEmpty()) {
+            System.out.println("Barcode cannot be empty.");
+            JOptionPane.showMessageDialog(null, "Barcode cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (category == 0) {
+            System.out.println("Please Select a Category");
+            JOptionPane.showMessageDialog(null, "Please Select a Category", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String checkSql = "SELECT COUNT(*) FROM products WHERE product_barcode = ?";
+        String insertSql = "INSERT INTO products(product_name, product_barcode, category_id) VALUES (?, ?, ?)";
+
+        try (Connection conn = ConnectionManager.getConnection()) {
+
+            // Step 1: Check if the category already exists
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, barcode.trim());
+                ResultSet rs = checkStmt.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count > 0) {
+                    System.out.println("Product with the same barcode already exists.");
+                    JOptionPane.showMessageDialog(null, "Product with the same barcode already exists.", "Duplicate", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            // Step 2: Insert the new category
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                insertStmt.setString(1, productName.trim());
+                insertStmt.setString(2, barcode.trim());
+                insertStmt.setString(3, category + "");
+
+                int rows = insertStmt.executeUpdate();
+
+                if (rows > 0) {
+                    ResultSet keys = insertStmt.getGeneratedKeys();
+                    if (keys.next()) {
+                        int catId = keys.getInt(1);
+                        System.out.println("Category Successfully Added");
+                        JOptionPane.showMessageDialog(null, "Category Successfully Added!\nID: " + catId + "\nName: " + productName.trim(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                        System.out.println("Product ID: " + catId);
+                        System.out.println("Product Name: " + productName.trim());
+                    }
+                } else {
+                    System.out.println("No product was added. Something went wrong.");
+                    JOptionPane.showMessageDialog(null, "No product was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
