@@ -184,4 +184,61 @@ public class ProductDAO {
             JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public void addCustomer(String cusName, String phoneNumber, String email, String birthYear, int gender) {
+        if (cusName == null || cusName.trim().isEmpty()) {
+            System.out.println("Customer name cannot be empty.");
+            JOptionPane.showMessageDialog(null, "Customer name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (gender == 0) {
+            System.out.println("Please Select a Gender / Atleast Other");
+            JOptionPane.showMessageDialog(null, "Please Select a Gender / Atleast Other", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if(birthYear.trim().isEmpty()) {
+        } else if (isInteger(birthYear) == false) {
+            JOptionPane.showMessageDialog(null, "Please insert a valid number for Birth Year", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String insertSql = "INSERT INTO customer(name, phone, email, birth_year, gender_gender_id) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConnectionManager.getConnection()) {
+            // Step 2: Insert the new category
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                insertStmt.setString(1, cusName.trim());
+                insertStmt.setString(2, phoneNumber.trim());
+                insertStmt.setString(3, email.trim());
+                insertStmt.setInt(4, Integer.parseInt(birthYear));
+                insertStmt.setString(5, gender + "");
+
+                int rows = insertStmt.executeUpdate();
+
+                if (rows > 0) {
+                    ResultSet keys = insertStmt.getGeneratedKeys();
+                    if (keys.next()) {
+                        int catId = keys.getInt(1);
+                        System.out.println("Customer Successfully Added");
+                        JOptionPane.showMessageDialog(null, "Customer Successfully Added!\nID: " + catId + "\nName: " + cusName.trim(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                        System.out.println("Product ID: " + catId);
+                        System.out.println("Product Name: " + cusName.trim());
+                    }
+                } else {
+                    System.out.println("No product was added. Something went wrong.");
+                    JOptionPane.showMessageDialog(null, "No product was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
