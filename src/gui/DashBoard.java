@@ -332,11 +332,26 @@ public class DashBoard extends javax.swing.JFrame {
         return 0.0;
     }
     
+    public double getProfit(String sql) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getDouble("total_profit");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+    
     public void showSoldItemsCount(String time) {
         if(time.equals("Today")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
+            profitNum.setText("");
             
             // Sold Items
             int todaySalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
@@ -352,10 +367,22 @@ public class DashBoard extends javax.swing.JFrame {
             );
             String formatted = String.format("Rs. %.2f", todayRevenue);
             transactionNum.setText(formatted);
+            
+            // Profit
+            double todayProfit = getProfit(
+                "SELECT SUM((si.unit_price - pb.product_cost) * si.quantity) AS total_profit " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
+                "WHERE DATE(b.datetime) = CURDATE();"
+            );
+            profitNum.setText(String.format("Rs. %.2f", todayProfit));
+            
         }else if(time.equals("This Week")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
+            profitNum.setText("");
             
             // Sold Items
             int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
@@ -371,10 +398,22 @@ public class DashBoard extends javax.swing.JFrame {
             );
             String formatted = String.format("Rs. %.2f", weekRevenue);
             transactionNum.setText(formatted);
+            
+            // Profit
+            double weekProfit = getProfit(
+                "SELECT SUM((si.unit_price - pb.product_cost) * si.quantity) AS total_profit " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
+                "WHERE YEARWEEK(b.datetime, 1) = YEARWEEK(CURDATE(), 1);"
+            );
+            profitNum.setText(String.format("Rs. %.2f", weekProfit));
+            
         }else if(time.equals("This Month")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
+            profitNum.setText("");
             
             // Sold Items
             int monthSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
@@ -391,10 +430,23 @@ public class DashBoard extends javax.swing.JFrame {
             );
             String formatted = String.format("Rs. %.2f", monthRevenue);
             transactionNum.setText(formatted);
+            
+            // Profit
+            double monthProfit = getProfit(
+                "SELECT SUM((si.unit_price - pb.product_cost) * si.quantity) AS total_profit " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
+                "WHERE YEAR(b.datetime) = YEAR(CURDATE()) " +
+                "AND MONTH(b.datetime) = MONTH(CURDATE());"
+            );
+            profitNum.setText(String.format("Rs. %.2f", monthProfit));
+            
         }else if(time.equals("This Year")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
+            profitNum.setText("");
             
             // Sold Items
             int yearSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
@@ -410,10 +462,23 @@ public class DashBoard extends javax.swing.JFrame {
             );
             String formatted = String.format("Rs. %.2f", yearRevenue);
             transactionNum.setText(formatted);
+            
+            // Profit
+            double yearProfit = getProfit(
+                "SELECT SUM((si.unit_price - pb.product_cost) * si.quantity) AS total_profit " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
+                "WHERE YEAR(b.datetime) = YEAR(CURDATE());"
+            );
+
+            profitNum.setText(String.format("Rs. %.2f", yearProfit));
+            
         }else if(time.equals("Lifetime")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
+            profitNum.setText("");
             
             // Sold Items
             int lifetimeSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
@@ -429,6 +494,16 @@ public class DashBoard extends javax.swing.JFrame {
             );
             String formatted = String.format("Rs. %.2f", lifetimeRevenue);
             transactionNum.setText(formatted);
+            
+            // Profit
+            double lifetimeProfit = getProfit(
+                "SELECT SUM((si.unit_price - pb.product_cost) * si.quantity) AS total_profit " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "JOIN product_batches pb ON si.stock_id = pb.batch_id "
+            );
+            profitNum.setText(String.format("Rs. %.2f", lifetimeProfit));
+            
         }
     }
     
