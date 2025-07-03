@@ -53,9 +53,6 @@ public class DashBoard extends javax.swing.JFrame {
         salesPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         salesNum = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        itemsSoldNum = new javax.swing.JLabel();
         salesPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         transactionNum = new javax.swing.JLabel();
@@ -80,10 +77,9 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Sales");
+        jLabel1.setText("Items Sold");
 
         salesNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        salesNum.setText("0");
 
         javax.swing.GroupLayout salesPanelLayout = new javax.swing.GroupLayout(salesPanel);
         salesPanel.setLayout(salesPanelLayout);
@@ -94,7 +90,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(salesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(salesNum))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         salesPanelLayout.setVerticalGroup(
             salesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,42 +99,13 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salesNum)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jPanel1.add(salesPanel);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Items Sold");
-
-        itemsSoldNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        itemsSoldNum.setText("0");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(itemsSoldNum))
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemsSoldNum)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel5);
-
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel7.setText("Transactions (Rs.)");
+        jLabel7.setText("Revenue (Rs.)");
 
         transactionNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         transactionNum.setText("0");
@@ -152,7 +119,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(salesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(transactionNum))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         salesPanel1Layout.setVerticalGroup(
             salesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +148,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(salesPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(profitNum))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
         salesPanel2Layout.setVerticalGroup(
             salesPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,6 +298,9 @@ public class DashBoard extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddCustomer category = new AddCustomer();  // or any other JFrame
         category.setVisible(true);
+        
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton4ActionPerformed
     
     public int getCountForPeriod(String sql) {
@@ -347,27 +317,117 @@ public class DashBoard extends javax.swing.JFrame {
         return 0;
     }
     
+    public double getRevenue(String sql) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getDouble("total_revenue");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+    
     public void showSoldItemsCount(String time) {
         if(time.equals("Today")){
+            // Clearing items before editing
+            salesNum.setText("");
+            transactionNum.setText("");
+            
+            // Sold Items
             int todaySalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
             salesNum.setText(todaySalesCount + "");
             System.out.println("Sales today: " + todaySalesCount);
+            
+            // Revenue
+            double todayRevenue = getRevenue(
+                "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "WHERE DATE(b.datetime) = CURDATE()"
+            );
+            String formatted = String.format("Rs. %.2f", todayRevenue);
+            transactionNum.setText(formatted);
         }else if(time.equals("This Week")){
+            // Clearing items before editing
+            salesNum.setText("");
+            transactionNum.setText("");
+            
+            // Sold Items
             int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
             salesNum.setText(weekSalesCount + "");
             System.out.println("Sales this week: " + weekSalesCount);
+            
+            // Revenue
+            double weekRevenue = getRevenue(
+                "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "WHERE YEARWEEK(b.datetime, 1) = YEARWEEK(CURDATE(), 1);"
+            );
+            String formatted = String.format("Rs. %.2f", weekRevenue);
+            transactionNum.setText(formatted);
         }else if(time.equals("This Month")){
-            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
-            salesNum.setText(weekSalesCount + "");
-            System.out.println("Sales this month: " + weekSalesCount);
+            // Clearing items before editing
+            salesNum.setText("");
+            transactionNum.setText("");
+            
+            // Sold Items
+            int monthSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
+            salesNum.setText(monthSalesCount + "");
+            System.out.println("Sales this month: " + monthSalesCount);
+            
+            // Revenue
+            double monthRevenue = getRevenue(
+                "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "WHERE YEAR(b.datetime) = YEAR(CURDATE()) " +
+                "AND MONTH(b.datetime) = MONTH(CURDATE());"
+            );
+            String formatted = String.format("Rs. %.2f", monthRevenue);
+            transactionNum.setText(formatted);
         }else if(time.equals("This Year")){
-            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
-            salesNum.setText(weekSalesCount + "");
-            System.out.println("Sales this year: " + weekSalesCount);
+            // Clearing items before editing
+            salesNum.setText("");
+            transactionNum.setText("");
+            
+            // Sold Items
+            int yearSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
+            salesNum.setText(yearSalesCount + "");
+            System.out.println("Sales this year: " + yearSalesCount);
+            
+            // Revenue
+            double yearRevenue = getRevenue(
+                "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
+                "FROM sold_items " +
+                "si JOIN bill b ON si.bill_id = b.bill_id " +
+                "WHERE YEAR(b.datetime) = YEAR(CURDATE());"
+            );
+            String formatted = String.format("Rs. %.2f", yearRevenue);
+            transactionNum.setText(formatted);
         }else if(time.equals("Lifetime")){
-            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
-            salesNum.setText(weekSalesCount + "");
-            System.out.println("Sales lifetime: " + weekSalesCount);
+            // Clearing items before editing
+            salesNum.setText("");
+            transactionNum.setText("");
+            
+            // Sold Items
+            int lifetimeSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
+            salesNum.setText(lifetimeSalesCount + "");
+            System.out.println("Sales lifetime: " + lifetimeSalesCount);
+            
+            // Revenue
+            double lifetimeRevenue = getRevenue(
+                "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
+                "FROM sold_items si " +
+                "JOIN bill b ON si.bill_id = b.bill_id " +
+                "WHERE DATE(b.datetime) = CURDATE()"
+            );
+            String formatted = String.format("Rs. %.2f", lifetimeRevenue);
+            transactionNum.setText(formatted);
         }
     }
     
@@ -388,20 +448,17 @@ public class DashBoard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JComboBox<String> durationCombo;
-    private javax.swing.JLabel itemsSoldNum;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel profitNum;
     private javax.swing.JLabel salesNum;
     private javax.swing.JPanel salesPanel;
