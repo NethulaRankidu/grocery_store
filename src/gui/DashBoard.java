@@ -4,7 +4,16 @@
  */
 package gui;
 
+import backend.ComboItem;
 import com.formdev.flatlaf.FlatDarkLaf;
+import backend.ConnectionManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +26,17 @@ public class DashBoard extends javax.swing.JFrame {
      */
     public DashBoard() {
         initComponents();
+        showSoldItemsCount("Today");
+        durationCombo.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String selected = (String) durationCombo.getSelectedItem();
+            if (selected != null) {
+                System.out.println("You selected: " + selected);
+                showSoldItemsCount(selected);
+            }
+        }
+    });
     }
 
     /**
@@ -32,17 +52,17 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         salesPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        salesNum = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        itemsSoldNum = new javax.swing.JLabel();
         salesPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        transactionNum = new javax.swing.JLabel();
         salesPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        profitNum = new javax.swing.JLabel();
+        durationCombo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -62,8 +82,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Sales");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel2.setText("0");
+        salesNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        salesNum.setText("0");
 
         javax.swing.GroupLayout salesPanelLayout = new javax.swing.GroupLayout(salesPanel);
         salesPanel.setLayout(salesPanelLayout);
@@ -73,7 +93,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(salesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(salesNum))
                 .addContainerGap(162, Short.MAX_VALUE))
         );
         salesPanelLayout.setVerticalGroup(
@@ -82,7 +102,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(salesNum)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -91,8 +111,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Items Sold");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel4.setText("0");
+        itemsSoldNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        itemsSoldNum.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -102,7 +122,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(itemsSoldNum))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -111,7 +131,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(itemsSoldNum)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -120,8 +140,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setText("Transactions (Rs.)");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel8.setText("0");
+        transactionNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        transactionNum.setText("0");
 
         javax.swing.GroupLayout salesPanel1Layout = new javax.swing.GroupLayout(salesPanel1);
         salesPanel1.setLayout(salesPanel1Layout);
@@ -131,7 +151,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(salesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(transactionNum))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         salesPanel1Layout.setVerticalGroup(
@@ -140,7 +160,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(transactionNum)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -149,8 +169,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setText("Profit (Rs.)");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel10.setText("0");
+        profitNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        profitNum.setText("0");
 
         javax.swing.GroupLayout salesPanel2Layout = new javax.swing.GroupLayout(salesPanel2);
         salesPanel2.setLayout(salesPanel2Layout);
@@ -160,7 +180,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(salesPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(profitNum))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
         salesPanel2Layout.setVerticalGroup(
@@ -169,14 +189,14 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(profitNum)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel1.add(salesPanel2);
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        durationCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        durationCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Today", "This Week", "This Month", "This Year", "Lifetime" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("Actions");
@@ -215,8 +235,13 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.add(jButton3);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton4.setText("jButton4");
+        jButton4.setText("+ Add Customer");
         jButton4.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton4);
 
         jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
@@ -243,7 +268,7 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(durationCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -256,7 +281,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(Title)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(durationCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,6 +327,50 @@ public class DashBoard extends javax.swing.JFrame {
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        AddCustomer category = new AddCustomer();  // or any other JFrame
+        category.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+    
+    public int getCountForPeriod(String sql) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public void showSoldItemsCount(String time) {
+        if(time.equals("Today")){
+            int todaySalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
+            salesNum.setText(todaySalesCount + "");
+            System.out.println("Sales today: " + todaySalesCount);
+        }else if(time.equals("This Week")){
+            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
+            salesNum.setText(weekSalesCount + "");
+            System.out.println("Sales this week: " + weekSalesCount);
+        }else if(time.equals("This Month")){
+            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
+            salesNum.setText(weekSalesCount + "");
+            System.out.println("Sales this month: " + weekSalesCount);
+        }else if(time.equals("This Year")){
+            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
+            salesNum.setText(weekSalesCount + "");
+            System.out.println("Sales this year: " + weekSalesCount);
+        }else if(time.equals("Lifetime")){
+            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
+            salesNum.setText(weekSalesCount + "");
+            System.out.println("Sales lifetime: " + weekSalesCount);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -318,26 +387,26 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
+    private javax.swing.JComboBox<String> durationCombo;
+    private javax.swing.JLabel itemsSoldNum;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel profitNum;
+    private javax.swing.JLabel salesNum;
     private javax.swing.JPanel salesPanel;
     private javax.swing.JPanel salesPanel1;
     private javax.swing.JPanel salesPanel2;
+    private javax.swing.JLabel transactionNum;
     // End of variables declaration//GEN-END:variables
 }

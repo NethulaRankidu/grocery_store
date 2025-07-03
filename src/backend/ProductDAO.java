@@ -195,6 +195,7 @@ public class ProductDAO {
             JOptionPane.showMessageDialog(null, "Please Select a Gender / Atleast Other", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else if(birthYear.trim().isEmpty()) {
+            birthYear = "1970";
         } else if (isInteger(birthYear) == false) {
             JOptionPane.showMessageDialog(null, "Please insert a valid number for Birth Year", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
