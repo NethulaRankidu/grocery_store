@@ -80,6 +80,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel1.setText("Items Sold");
 
         salesNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        salesNum.setText("null");
 
         javax.swing.GroupLayout salesPanelLayout = new javax.swing.GroupLayout(salesPanel);
         salesPanel.setLayout(salesPanelLayout);
@@ -99,7 +100,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salesNum)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel1.add(salesPanel);
@@ -108,7 +109,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel7.setText("Revenue (Rs.)");
 
         transactionNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        transactionNum.setText("0");
+        transactionNum.setText("null");
 
         javax.swing.GroupLayout salesPanel1Layout = new javax.swing.GroupLayout(salesPanel1);
         salesPanel1.setLayout(salesPanel1Layout);
@@ -137,7 +138,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel9.setText("Profit (Rs.)");
 
         profitNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        profitNum.setText("0");
+        profitNum.setText("null");
 
         javax.swing.GroupLayout salesPanel2Layout = new javax.swing.GroupLayout(salesPanel2);
         salesPanel2.setLayout(salesPanel2Layout);
