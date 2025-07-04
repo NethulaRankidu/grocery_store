@@ -10,13 +10,21 @@ import backend.ProductDAO;
 import backend.ProductDAO.StockBatchDetails;
 import backend.StockBatchItem;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -30,6 +38,17 @@ public class BillingSystem extends javax.swing.JFrame {
     public BillingSystem() {
         initComponents();
         loadCustomersIntoComboBox();
+        
+        DefaultTableModel model = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del"}
+        );
+        ProductTable.setModel(model);
+
+        // Optional: Set column renderer & editor for "Del" button
+        ProductTable.getColumn("Del").setCellRenderer(new ButtonRenderer());
+        ProductTable.getColumn("Del").setCellEditor(new ButtonEditor(new JCheckBox()));
+
     }
 
     /**
@@ -44,7 +63,7 @@ public class BillingSystem extends javax.swing.JFrame {
         Title = new javax.swing.JLabel();
         BackButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ProductTable = new javax.swing.JTable();
         barcodeTextField = new javax.swing.JTextField();
         barcodeLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -52,7 +71,7 @@ public class BillingSystem extends javax.swing.JFrame {
         StockUpdateDetails = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         StockComboBox = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
+        CurrentTotalLabel = new javax.swing.JLabel();
         ProductNameLabel = new javax.swing.JLabel();
         StockDateLabel = new javax.swing.JLabel();
         RemAfterBuyLabel = new javax.swing.JLabel();
@@ -62,7 +81,7 @@ public class BillingSystem extends javax.swing.JFrame {
         CustomerComboBox = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        ChangeLabel = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         QtySpinner = new javax.swing.JSpinner();
         jSpinner1 = new javax.swing.JSpinner();
@@ -81,27 +100,16 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
-        jTable1.setPreferredSize(new java.awt.Dimension(450, 70));
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        ProductTable.setPreferredSize(new java.awt.Dimension(450, 70));
+        jScrollPane1.setViewportView(ProductTable);
 
         barcodeTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barcodeTextField.setToolTipText("Type the product barcode here");
@@ -137,10 +145,10 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Current Total: Rs. 0.00");
-        jLabel6.setToolTipText("");
+        CurrentTotalLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CurrentTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        CurrentTotalLabel.setText("Current Total: Rs. 0.00");
+        CurrentTotalLabel.setToolTipText("");
 
         ProductNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ProductNameLabel.setText("Product Name:");
@@ -176,10 +184,10 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Change: Rs. 0.00");
-        jLabel12.setToolTipText("");
+        ChangeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ChangeLabel.setText("Change: Rs. 0.00");
+        ChangeLabel.setToolTipText("");
 
         jButton7.setText("Calculate");
         jButton7.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -208,9 +216,9 @@ public class BillingSystem extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CurrentTotalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ChangeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
@@ -287,9 +295,9 @@ public class BillingSystem extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ChangeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(CurrentTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,7 +306,45 @@ public class BillingSystem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEntryButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Get selected values
+            String barcode = barcodeTextField.getText();
+            StockBatchItem selectedBatch = (StockBatchItem) StockComboBox.getSelectedItem();
+            int qty = (int) QtySpinner.getValue();
+
+            ProductDAO dao = new ProductDAO();
+            StockBatchDetails details = dao.getStockBatchDetailsById(selectedBatch.getBatchId());
+
+            double unitPrice = details.unitPrice;
+            double amount = unitPrice * qty;
+
+            // Prepare table model
+            DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+
+            // Create delete button
+            JButton deleteButton = new JButton("Del");
+            deleteButton.addActionListener(e -> {
+                int row = ProductTable.convertRowIndexToModel(ProductTable.getEditingRow());
+                model.removeRow(row);
+                updateCurrentTotal();
+            });
+
+            // Add row
+            model.addRow(new Object[]{
+                barcode,
+                details.productName,
+                String.format("%.2f", unitPrice),
+                qty,
+                String.format("%.2f", amount),
+                deleteButton
+            });
+
+            updateCurrentTotal();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error adding entry: " + e.getMessage());
+        }
     }//GEN-LAST:event_AddEntryButtonActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
@@ -402,10 +448,78 @@ public class BillingSystem extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading Customers: " + e.getMessage());
+        } 
+    }
+    
+    public void updateCurrentTotal() {
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+        double total = 0.0;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String amountStr = model.getValueAt(i, 4).toString();
+            total += Double.parseDouble(amountStr);
         }
-        
-        
-        
+
+        CurrentTotalLabel.setText("Current Total: Rs. " + String.format("%.2f", total));
+    }
+    
+    public class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "Del" : value.toString());
+            return this;
+        }
+    }
+    
+    public static class ButtonEditor extends DefaultCellEditor {
+        protected JButton button;
+        private String label;
+        private boolean clicked;
+        private JTable table;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton("Del");
+            button.setOpaque(true);
+
+            button.addActionListener(e -> {
+                fireEditingStopped();
+                int row = table.getSelectedRow();
+                ((DefaultTableModel) table.getModel()).removeRow(row);
+                // Call method in BillingSystem to update total
+                ((BillingSystem) SwingUtilities.getWindowAncestor(table)).updateCurrentTotal();
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            this.table = table;
+            label = (value == null) ? "Del" : value.toString();
+            button.setText(label);
+            clicked = true;
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return label;
+        }
+
+        @Override
+        public boolean stopCellEditing() {
+            clicked = false;
+            return super.stopCellEditing();
+        }
+
+        @Override
+        protected void fireEditingStopped() {
+            super.fireEditingStopped();
+        }
     }
     /**
      * @param args the command line arguments
@@ -428,8 +542,11 @@ public class BillingSystem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEntryButton;
     private javax.swing.JButton BackButton;
+    private javax.swing.JLabel ChangeLabel;
+    private javax.swing.JLabel CurrentTotalLabel;
     private javax.swing.JComboBox<ComboItem> CustomerComboBox;
     private javax.swing.JLabel ProductNameLabel;
+    private javax.swing.JTable ProductTable;
     private javax.swing.JSpinner QtySpinner;
     private javax.swing.JButton QtyUpdateDetails;
     private javax.swing.JLabel RemAfterBuyLabel;
@@ -444,12 +561,9 @@ public class BillingSystem extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
