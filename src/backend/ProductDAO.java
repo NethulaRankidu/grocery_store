@@ -234,6 +234,71 @@ public class ProductDAO {
         }
     }
     
+    public void addStock(int productId, int units, String receivedDate, String expireDate, double productPrice, double productCost) {
+        if (productId == 0) {
+            System.out.println("Please select a product");
+            JOptionPane.showMessageDialog(null, "Please select a product", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (units <= 0) {
+            System.out.println("Units cannot be empty or negative");
+            JOptionPane.showMessageDialog(null, "Units cannot be empty or negative", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (receivedDate == null || receivedDate.trim().isEmpty()) {
+            System.out.println("Please select a received date");
+            JOptionPane.showMessageDialog(null, "Please select a received date", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (expireDate == null || expireDate.trim().isEmpty()) {
+            System.out.println("Please select a expire date");
+            JOptionPane.showMessageDialog(null, "Please select a expire date", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (productPrice <= 0) {
+            System.out.println("Product price cannot be empty or negative");
+            JOptionPane.showMessageDialog(null, "Product price cannot be empty or negative", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if (productCost <= 0) {
+            System.out.println("Product cost cannot be empty or negative");
+            JOptionPane.showMessageDialog(null, "Product price cannot be empty or negative", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String insertSql = "INSERT INTO product_batches(product_id, units, expiry_date, received_date, product_cost, product_price, remaining_items, bought_items) " + 
+                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = ConnectionManager.getConnection()) {
+
+            // Step 2: Insert the new category
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                insertStmt.setString(1, productId + "");
+                insertStmt.setString(2, units + "");
+                insertStmt.setString(3, receivedDate);
+                insertStmt.setString(4, expireDate);
+                insertStmt.setString(5, productPrice + "");
+                insertStmt.setString(6, productCost + "");
+                insertStmt.setString(7, units + "");
+                insertStmt.setString(8, "0");
+
+                int rows = insertStmt.executeUpdate();
+
+                if (rows > 0) {
+                    ResultSet keys = insertStmt.getGeneratedKeys();
+                    if (keys.next()) {
+                        int catId = keys.getInt(1);
+                        System.out.println("Stock Successfully Added");
+                        JOptionPane.showMessageDialog(null, "Stock Successfully Added!\nStock ID: " + catId + "\nProduct ID: " + productId, "Success", JOptionPane.INFORMATION_MESSAGE);
+                        System.out.println("Stock ID: " + catId);
+                        System.out.println("Product ID: " + productId);
+                    }
+                } else {
+                    System.out.println("No Stock was added. Something went wrong.");
+                    JOptionPane.showMessageDialog(null, "No Stock was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
