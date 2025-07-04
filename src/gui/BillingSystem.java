@@ -7,6 +7,7 @@ package gui;
 import backend.ComboItem;
 import backend.ConnectionManager;
 import backend.ProductDAO;
+import backend.ProductDAO.StockBatchDetails;
 import backend.StockBatchItem;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.Connection;
@@ -52,10 +53,10 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         StockComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        ProductNameLabel = new javax.swing.JLabel();
+        StockDateLabel = new javax.swing.JLabel();
+        RemAfterBuyLabel = new javax.swing.JLabel();
+        UnitPriceLabel = new javax.swing.JLabel();
         AddEntryButton = new javax.swing.JButton();
         barcodeLabel1 = new javax.swing.JLabel();
         CustomerComboBox = new javax.swing.JComboBox<>();
@@ -113,6 +114,11 @@ public class BillingSystem extends javax.swing.JFrame {
 
         QtyUpdateDetails.setText("Update Details");
         QtyUpdateDetails.setPreferredSize(new java.awt.Dimension(75, 25));
+        QtyUpdateDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QtyUpdateDetailsActionPerformed(evt);
+            }
+        });
 
         StockUpdateDetails.setText("Update Details");
         StockUpdateDetails.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -136,17 +142,17 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel6.setText("Current Total: Rs. 0.00");
         jLabel6.setToolTipText("");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Product Name:");
+        ProductNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ProductNameLabel.setText("Product Name:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Stock Date:");
+        StockDateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        StockDateLabel.setText("Stock Date:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Remaining (After Buy):");
+        RemAfterBuyLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        RemAfterBuyLabel.setText("Remaining (After Buy):");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Unit Price:");
+        UnitPriceLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        UnitPriceLabel.setText("Unit Price:");
 
         AddEntryButton.setText("Add Entry");
         AddEntryButton.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -215,10 +221,10 @@ public class BillingSystem extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(barcodeTextField)
                             .addComponent(barcodeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ProductNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(StockDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RemAfterBuyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(UnitPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AddEntryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -261,13 +267,13 @@ public class BillingSystem extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(QtyUpdateDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
+                        .addComponent(ProductNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
+                        .addComponent(UnitPriceLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
+                        .addComponent(StockDateLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
+                        .addComponent(RemAfterBuyLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(AddEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,6 +352,37 @@ public class BillingSystem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_StockUpdateDetailsActionPerformed
 
+    private void QtyUpdateDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QtyUpdateDetailsActionPerformed
+        // TODO add your handling code here:
+        // 1. Get selected stock batch from combo box
+        StockBatchItem selectedBatch = (StockBatchItem) StockComboBox.getSelectedItem();
+        if (selectedBatch == null) {
+            JOptionPane.showMessageDialog(this, "Please select a stock batch first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 2. Get quantity from spinner
+        int selectedQty = (int) QtySpinner.getValue();
+
+        // 3. Get stock batch details from DAO (product name, unit price, stock date, remaining)
+        ProductDAO dao = new ProductDAO();
+        StockBatchDetails details = dao.getStockBatchDetailsById(selectedBatch.getBatchId());
+
+        if (details == null) {
+            JOptionPane.showMessageDialog(this, "Could not find stock batch details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // 4. Calculate remaining after buy
+        int remainingAfterBuy = details.remainingItems - selectedQty;
+
+        // 5. Update labels
+        ProductNameLabel.setText("Product Name: " + details.productName);
+        UnitPriceLabel.setText("Unit Price: " + details.unitPrice);
+        StockDateLabel.setText("Stock Date: " + details.stockDate);
+        RemAfterBuyLabel.setText("Remaining (After Buy): " + remainingAfterBuy);
+    }//GEN-LAST:event_QtyUpdateDetailsActionPerformed
+
     public void loadCustomersIntoComboBox() {
         String sql = "SELECT customer_id, name FROM customer";
 
@@ -392,25 +429,25 @@ public class BillingSystem extends javax.swing.JFrame {
     private javax.swing.JButton AddEntryButton;
     private javax.swing.JButton BackButton;
     private javax.swing.JComboBox<ComboItem> CustomerComboBox;
+    private javax.swing.JLabel ProductNameLabel;
     private javax.swing.JSpinner QtySpinner;
     private javax.swing.JButton QtyUpdateDetails;
+    private javax.swing.JLabel RemAfterBuyLabel;
     private javax.swing.JComboBox<StockBatchItem> StockComboBox;
+    private javax.swing.JLabel StockDateLabel;
     private javax.swing.JButton StockUpdateDetails;
     private javax.swing.JLabel Title;
+    private javax.swing.JLabel UnitPriceLabel;
     private javax.swing.JLabel barcodeLabel;
     private javax.swing.JLabel barcodeLabel1;
     private javax.swing.JTextField barcodeTextField;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;

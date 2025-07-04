@@ -358,4 +358,49 @@ public class ProductDAO {
 
         return batches;
     }
+    
+    public class StockBatchDetails {
+        public String productName;
+        public double unitPrice;
+        public String stockDate;  // Could also be java.sql.Date
+        public int remainingItems;
+
+        public StockBatchDetails(String productName, double unitPrice, String stockDate, int remainingItems) {
+            this.productName = productName;
+            this.unitPrice = unitPrice;
+            this.stockDate = stockDate;
+            this.remainingItems = remainingItems;
+        }
+    }
+    
+    public StockBatchDetails getStockBatchDetailsById(int batchId) {
+        String sql = """
+            SELECT p.product_name, b.product_price, b.received_date, b.remaining_items
+            FROM product_batches b
+            JOIN products p ON b.product_id = p.product_id
+            WHERE b.batch_id = ?
+        """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, batchId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String name = rs.getString("product_name");
+                double price = rs.getDouble("product_price");
+                Date receivedDate = rs.getDate("received_date");
+                int remaining = rs.getInt("remaining_items");
+
+                return new StockBatchDetails(name, price, receivedDate.toString(), remaining);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error fetching batch details: " + e.getMessage());
+        }
+
+        return null;
+    }
 }
