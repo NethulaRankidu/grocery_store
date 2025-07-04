@@ -1,14 +1,14 @@
 package backend;
 
-import backend.ConnectionManager;
-import java.awt.List;
-import java.math.BigDecimal;
+import backend.StockBatchItem;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ProductDAO {
@@ -306,5 +306,56 @@ public class ProductDAO {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+    
+    public Integer getProductIdByBarcode(String barcode) {
+        if (barcode == null || barcode.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Barcode cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String sql = "SELECT product_id FROM products WHERE product_barcode = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, barcode.trim());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("product_id");
+            } else {
+                JOptionPane.showMessageDialog(null, "Product not found.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return null;
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public List<StockBatchItem> getStockBatchesByProductId(int productId) {
+        List<StockBatchItem> batches = new ArrayList<>();
+        String sql = "SELECT batch_id, expiry_date, remaining_items FROM product_batches WHERE product_id = ? AND remaining_items > 0";
+
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int batchId = rs.getInt("batch_id");
+                Date expiry = rs.getDate("expiry_date");
+                int remaining = rs.getInt("remaining_items");
+                String label = "Batch " + batchId + " | Exp: " + expiry + " | Qty: " + remaining;
+                batches.add(new StockBatchItem(batchId, label));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error loading stock batches: " + e.getMessage());
+        }
+
+        return batches;
     }
 }

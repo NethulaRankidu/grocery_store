@@ -6,11 +6,14 @@ package gui;
 
 import backend.ComboItem;
 import backend.ConnectionManager;
+import backend.ProductDAO;
+import backend.StockBatchItem;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -112,11 +115,15 @@ public class BillingSystem extends javax.swing.JFrame {
 
         StockUpdateDetails.setText("Update Details");
         StockUpdateDetails.setPreferredSize(new java.awt.Dimension(75, 25));
+        StockUpdateDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StockUpdateDetailsActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Stock");
 
-        StockComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         StockComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StockComboBoxActionPerformed(evt);
@@ -308,6 +315,27 @@ public class BillingSystem extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_StockComboBoxActionPerformed
 
+    private void StockUpdateDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockUpdateDetailsActionPerformed
+        // TODO add your handling code here:
+        String barcode = barcodeTextField.getText();
+        ProductDAO dao = new ProductDAO();
+        Integer productId = dao.getProductIdByBarcode(barcode);
+
+        if (productId != null) {
+            List<StockBatchItem> stockBatches = dao.getStockBatchesByProductId(productId);
+
+            StockComboBox.removeAllItems(); // Clear previous items
+
+            if (stockBatches.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No stock available for this product.", "Stock Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (StockBatchItem item : stockBatches) {
+                    StockComboBox.addItem(item);
+                }
+            }
+        }
+    }//GEN-LAST:event_StockUpdateDetailsActionPerformed
+
     public void loadCustomersIntoComboBox() {
         String sql = "SELECT customer_id, name FROM customer";
 
@@ -344,6 +372,8 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEntryButton;
@@ -351,7 +381,7 @@ public class BillingSystem extends javax.swing.JFrame {
     private javax.swing.JComboBox<ComboItem> CustomerComboBox;
     private javax.swing.JSpinner QtySpinner;
     private javax.swing.JButton QtyUpdateDetails;
-    private javax.swing.JComboBox<String> StockComboBox;
+    private javax.swing.JComboBox<StockBatchItem> StockComboBox;
     private javax.swing.JButton StockUpdateDetails;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel barcodeLabel;
