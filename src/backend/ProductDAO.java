@@ -270,10 +270,10 @@ public class ProductDAO {
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                 insertStmt.setString(1, productId + "");
                 insertStmt.setString(2, units + "");
-                insertStmt.setString(3, receivedDate);
-                insertStmt.setString(4, expireDate);
-                insertStmt.setString(5, productPrice + "");
-                insertStmt.setString(6, productCost + "");
+                insertStmt.setString(3, expireDate);
+                insertStmt.setString(4, receivedDate);
+                insertStmt.setString(5, productCost + "");
+                insertStmt.setString(6, productPrice + "");
                 insertStmt.setString(7, units + "");
                 insertStmt.setString(8, "0");
 
