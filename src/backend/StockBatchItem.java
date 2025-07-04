@@ -11,14 +11,20 @@ package backend;
 public class StockBatchItem {
     private int batchId;
     private String label;
+    private int remainingItems;
 
-    public StockBatchItem(int batchId, String label) {
+    public StockBatchItem(int batchId, String label, int remainingItems) {
         this.batchId = batchId;
         this.label = label;
+        this.remainingItems = remainingItems;
     }
 
     public int getBatchId() {
         return batchId;
+    }
+    
+    public int getRemainingItems() {
+        return remainingItems;
     }
 
     @Override

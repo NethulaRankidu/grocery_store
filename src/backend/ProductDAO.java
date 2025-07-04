@@ -349,7 +349,7 @@ public class ProductDAO {
                 Date expiry = rs.getDate("expiry_date");
                 int remaining = rs.getInt("remaining_items");
                 String label = "Batch " + batchId + " | Exp: " + expiry + " | Qty: " + remaining;
-                batches.add(new StockBatchItem(batchId, label));
+                batches.add(new StockBatchItem(batchId, label, remaining));
             }
 
         } catch (SQLException e) {

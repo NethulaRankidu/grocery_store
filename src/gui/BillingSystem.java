@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -312,7 +313,16 @@ public class BillingSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void StockComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockComboBoxActionPerformed
-        // TODO add your handling code here:
+
+        StockBatchItem selected = (StockBatchItem) StockComboBox.getSelectedItem();
+
+        if (selected != null) {
+            int availableQty = selected.getRemainingItems(); // this must be stored in StockBatchItem
+
+            // Create a new Spinner model with updated max quantity
+            SpinnerNumberModel qtyModel = new SpinnerNumberModel(1, 1, availableQty, 1);
+            QtySpinner.setModel(qtyModel);
+        }
     }//GEN-LAST:event_StockComboBoxActionPerformed
 
     private void StockUpdateDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockUpdateDetailsActionPerformed
@@ -356,6 +366,9 @@ public class BillingSystem extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading Customers: " + e.getMessage());
         }
+        
+        
+        
     }
     /**
      * @param args the command line arguments
