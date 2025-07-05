@@ -537,8 +537,6 @@ public class BillingSystem extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         FlatDarkLaf.setup();
-        
-        /* DB Fetch for */
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
