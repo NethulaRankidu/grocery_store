@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
@@ -381,6 +382,8 @@ public class BillingSystem extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        ComboItem customer = (ComboItem) CustomerComboBox.getSelectedItem();
+        saveBillToDatabase(1, customer.getValue());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void CalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculateButtonActionPerformed
@@ -571,6 +574,93 @@ public class BillingSystem extends javax.swing.JFrame {
             super.fireEditingStopped();
         }
     }
+    
+    public void saveBillToDatabase(int cashierId, int customerId) {
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+        int rowCount = model.getRowCount();
+
+        if (rowCount == 0) {
+            JOptionPane.showMessageDialog(null, "No products in the bill.");
+            return;
+        }
+
+        Connection conn = null;
+        try {
+            conn = ConnectionManager.getConnection();
+            conn.setAutoCommit(false);
+
+            // Step 1: Calculate total price
+            double totalPrice = 0;
+            for (int i = 0; i < rowCount; i++) {
+                totalPrice += Double.parseDouble(model.getValueAt(i, 4).toString()); // Amount
+            }
+
+            // Step 2: Insert into bill table
+            String insertBill = "INSERT INTO bill (cashier_id, customer_id, datetime, total_price) VALUES (?, ?, NOW(), ?)";
+            PreparedStatement billStmt = conn.prepareStatement(insertBill, Statement.RETURN_GENERATED_KEYS);
+            billStmt.setInt(1, cashierId);
+            billStmt.setInt(2, customerId);
+            billStmt.setDouble(3, totalPrice);
+            billStmt.executeUpdate();
+
+            ResultSet rs = billStmt.getGeneratedKeys();
+            if (!rs.next()) throw new SQLException("Failed to retrieve generated bill_id");
+            int billId = rs.getInt(1);
+
+            // Step 3: Prepare sold_items insert
+            String insertSold = "INSERT INTO sold_items (bill_id, product_id, stock_id, quantity, unit_price) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement soldStmt = conn.prepareStatement(insertSold);
+
+            // Step 4: Prepare batch update
+            String updateBatch = "UPDATE product_batches SET remaining_items = remaining_items - ?, bought_items = bought_items + ? WHERE batch_id = ?";
+            PreparedStatement batchStmt = conn.prepareStatement(updateBatch);
+
+            for (int i = 0; i < rowCount; i++) {
+                int productId = Integer.parseInt(model.getValueAt(i, 6).toString()); // product_id
+                int batchId = Integer.parseInt(model.getValueAt(i, 7).toString());   // batch_id
+                int qty = Integer.parseInt(model.getValueAt(i, 3).toString());       // Qty
+                double unitPrice = Double.parseDouble(model.getValueAt(i, 2).toString()); // Unit Price
+
+                // Insert into sold_items
+                soldStmt.setInt(1, billId);
+                soldStmt.setInt(2, productId);
+                soldStmt.setInt(3, batchId);
+                soldStmt.setInt(4, qty);
+                soldStmt.setDouble(5, unitPrice);
+                soldStmt.addBatch();
+
+                // Update stock
+                batchStmt.setInt(1, qty); // Subtract from remaining
+                batchStmt.setInt(2, qty); // Add to bought_items
+                batchStmt.setInt(3, batchId);
+                batchStmt.addBatch();
+            }
+
+            soldStmt.executeBatch();
+            batchStmt.executeBatch();
+
+            conn.commit();
+
+            JOptionPane.showMessageDialog(null, "Bill saved successfully! Bill ID: " + billId);
+
+            // Optional: clear the table or prepare for next transaction
+        } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error saving bill: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -584,8 +674,6 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEntryButton;
