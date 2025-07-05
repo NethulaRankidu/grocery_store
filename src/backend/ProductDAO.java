@@ -364,18 +364,20 @@ public class ProductDAO {
         public double unitPrice;
         public String stockDate;  // Could also be java.sql.Date
         public int remainingItems;
+        public int productId;
 
-        public StockBatchDetails(String productName, double unitPrice, String stockDate, int remainingItems) {
+        public StockBatchDetails(String productName, double unitPrice, String stockDate, int remainingItems, int productId) {
             this.productName = productName;
             this.unitPrice = unitPrice;
             this.stockDate = stockDate;
             this.remainingItems = remainingItems;
+            this.productId = productId;
         }
     }
     
     public StockBatchDetails getStockBatchDetailsById(int batchId) {
         String sql = """
-            SELECT p.product_name, b.product_price, b.received_date, b.remaining_items
+            SELECT p.product_name, b.product_price, b.received_date, b.remaining_items, p.product_id
             FROM product_batches b
             JOIN products p ON b.product_id = p.product_id
             WHERE b.batch_id = ?
@@ -392,8 +394,9 @@ public class ProductDAO {
                 double price = rs.getDouble("product_price");
                 Date receivedDate = rs.getDate("received_date");
                 int remaining = rs.getInt("remaining_items");
+                int productId = rs.getInt("product_id");
 
-                return new StockBatchDetails(name, price, receivedDate.toString(), remaining);
+                return new StockBatchDetails(name, price, receivedDate.toString(), remaining, productId);
             }
 
         } catch (SQLException e) {

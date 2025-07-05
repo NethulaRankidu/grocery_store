@@ -27,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -43,10 +44,12 @@ public class BillingSystem extends javax.swing.JFrame {
         
         DefaultTableModel model = new DefaultTableModel(
             new Object[][]{},
-            new String[]{"Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del"}
+            new String[]{"Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del", "product_id", "batch_id"}
         );
         ProductTable.setModel(model);
-
+        hideColumn(ProductTable, 6); // product_id column index
+        hideColumn(ProductTable, 7); // batch_id column index
+        
         // Optional: Set column renderer & editor for "Del" button
         ProductTable.getColumn("Del").setCellRenderer(new ButtonRenderer());
         ProductTable.getColumn("Del").setCellEditor(new ButtonEditor(new JCheckBox()));
@@ -178,7 +181,7 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Given Money:");
 
-        jButton6.setText("Add Entry");
+        jButton6.setText("Print");
         jButton6.setPreferredSize(new java.awt.Dimension(75, 25));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,7 +316,14 @@ public class BillingSystem extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    // Helper method to hide a column
+    private void hideColumn(JTable table, int colIndex) {
+        TableColumn column = table.getColumnModel().getColumn(colIndex);
+        column.setMinWidth(0);
+        column.setMaxWidth(0);
+        column.setWidth(0);
+        column.setPreferredWidth(0);
+    }
     private void AddEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEntryButtonActionPerformed
         try {
             // Get selected values
@@ -326,9 +336,11 @@ public class BillingSystem extends javax.swing.JFrame {
 
             double unitPrice = details.unitPrice;
             double amount = unitPrice * qty;
+            int product_id = details.productId;
 
             // Prepare table model
             DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+
 
             // Create delete button
             JButton deleteButton = new JButton("Del");
@@ -345,7 +357,9 @@ public class BillingSystem extends javax.swing.JFrame {
                 String.format("%.2f", unitPrice),
                 qty,
                 String.format("%.2f", amount),
-                "🗑️"
+                "🗑️",
+                product_id,
+                selectedBatch.getBatchId()
             });
 
             updateCurrentTotal();
