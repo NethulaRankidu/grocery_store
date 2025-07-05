@@ -84,7 +84,7 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         ChangeLabel = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        CalculateButton = new javax.swing.JButton();
         QtySpinner = new javax.swing.JSpinner();
         GivenMoneySpinner = new javax.swing.JSpinner();
 
@@ -191,11 +191,11 @@ public class BillingSystem extends javax.swing.JFrame {
         ChangeLabel.setText("Change: Rs. 0.00");
         ChangeLabel.setToolTipText("");
 
-        jButton7.setText("Calculate");
-        jButton7.setPreferredSize(new java.awt.Dimension(75, 25));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        CalculateButton.setText("Calculate");
+        CalculateButton.setPreferredSize(new java.awt.Dimension(75, 25));
+        CalculateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                CalculateButtonActionPerformed(evt);
             }
         });
 
@@ -242,7 +242,7 @@ public class BillingSystem extends javax.swing.JFrame {
                             .addComponent(StockComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(StockUpdateDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CalculateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ProductNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -269,7 +269,7 @@ public class BillingSystem extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ChangeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(CalculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(CurrentTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -369,9 +369,31 @@ public class BillingSystem extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void CalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculateButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+        try {
+            // Step 1: Get total from the table
+            double total = 0.0;
+            DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+                double amount = Double.parseDouble(model.getValueAt(i, 4).toString()); // Column 4 = Amount
+                total += amount;
+            }
+
+            // Step 2: Get given money from spinner
+            double given = ((Number) GivenMoneySpinner.getValue()).doubleValue();
+
+            // Step 3: Calculate change
+            double change = given - total;
+
+            // Step 4: Show change (with 2 decimal places)
+            ChangeLabel.setText(String.format("Change: Rs. %.2f", change));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error calculating change: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_CalculateButtonActionPerformed
 
     private void StockComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockComboBoxActionPerformed
 
@@ -554,6 +576,7 @@ public class BillingSystem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEntryButton;
     private javax.swing.JButton BackButton;
+    private javax.swing.JButton CalculateButton;
     private javax.swing.JLabel ChangeLabel;
     private javax.swing.JLabel CurrentTotalLabel;
     private javax.swing.JComboBox<ComboItem> CustomerComboBox;
@@ -572,7 +595,6 @@ public class BillingSystem extends javax.swing.JFrame {
     private javax.swing.JLabel barcodeLabel1;
     private javax.swing.JTextField barcodeTextField;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
