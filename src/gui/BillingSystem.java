@@ -6,6 +6,7 @@ package gui;
 
 import backend.ComboItem;
 import backend.ConnectionManager;
+import static backend.InvoicePrinter.generateInvoice;
 import backend.ProductDAO;
 import backend.ProductDAO.StockBatchDetails;
 import backend.StockBatchItem;
@@ -384,6 +385,7 @@ public class BillingSystem extends javax.swing.JFrame {
         // TODO add your handling code here:
         ComboItem customer = (ComboItem) CustomerComboBox.getSelectedItem();
         saveBillToDatabase(1, customer.getValue());
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void CalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculateButtonActionPerformed
@@ -642,6 +644,7 @@ public class BillingSystem extends javax.swing.JFrame {
             conn.commit();
 
             JOptionPane.showMessageDialog(null, "Bill saved successfully! Bill ID: " + billId);
+            generateInvoice(billId);
 
             // Optional: clear the table or prepare for next transaction
         } catch (SQLException e) {
