@@ -384,6 +384,19 @@ public class BillingSystem extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         ComboItem customer = (ComboItem) CustomerComboBox.getSelectedItem();
+        
+        
+        if(customer.getValue() == 0){
+            JOptionPane.showMessageDialog(null, "Please Select a Customer", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(barcodeTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please Input a valid Barcode", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(QtySpinner.getValue().equals(0)){
+            JOptionPane.showMessageDialog(null, "Please Select a Quantity", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
         saveBillToDatabase(1, customer.getValue());
         
     }//GEN-LAST:event_jButton6ActionPerformed

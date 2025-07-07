@@ -4,9 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/grocery_store/src/gui/BillingSystem.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/grocery_store/src/backend/InvoicePrinter.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/grocery_store/src/backend/ProductDAO.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/grocery_store/src/backend/ComboItem.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/grocery_store/src/gui/AddCustomer.java</file>
         </group>
     </open-files>
 </project-private>
