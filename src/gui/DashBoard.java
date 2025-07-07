@@ -489,8 +489,7 @@ public class DashBoard extends javax.swing.JFrame {
             double lifetimeRevenue = getRevenue(
                 "SELECT SUM(si.quantity * si.unit_price) AS total_revenue " +
                 "FROM sold_items si " +
-                "JOIN bill b ON si.bill_id = b.bill_id " +
-                "WHERE DATE(b.datetime) = CURDATE()"
+                "JOIN bill b ON si.bill_id = b.bill_id "
             );
             String formatted = String.format("Rs. %.2f", lifetimeRevenue);
             transactionNum.setText(formatted);
