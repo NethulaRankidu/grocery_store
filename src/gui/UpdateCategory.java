@@ -46,7 +46,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addCategoryButton.setText("Add Category");
+        addCategoryButton.setText("Update Category");
         addCategoryButton.setToolTipText("");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
