@@ -66,6 +66,7 @@ public class DashBoard extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -212,6 +213,17 @@ public class DashBoard extends javax.swing.JFrame {
         });
         jPanel2.add(jButton4);
 
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton6.setText("+ Add Stock");
+        jButton6.setActionCommand("");
+        jButton6.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6);
+
         jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         jButton5.setText("❌ Quit");
         jButton5.setActionCommand("");
@@ -303,6 +315,15 @@ public class DashBoard extends javax.swing.JFrame {
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        AddStock stock = new AddStock();  // or any other JFrame
+        stock.setVisible(true);
+        
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_jButton6ActionPerformed
     
     public int getCountForPeriod(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
@@ -528,6 +549,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
