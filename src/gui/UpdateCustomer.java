@@ -26,7 +26,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
      */
     public UpdateCustomer() {
         initComponents();
-        loadCategoriesIntoComboBox();
+        loadGendersIntoComboBox();
     }
 
     /**
@@ -291,7 +291,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         
     }
     
-public void loadCategoriesIntoComboBox() {
+public void loadGendersIntoComboBox() {
     String sql = "SELECT gender_id, gender_name FROM gender";
 
     try (Connection conn = ConnectionManager.getConnection();
@@ -311,6 +311,47 @@ public void loadCategoriesIntoComboBox() {
     } catch (SQLException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
+    }
+}
+
+public void loadCustomerDetailsIntoBoxes() {
+    String sql = "SELECT \n" +
+                 "    c.customer_id,\n" +
+                 "    c.name,\n" +
+                 "    c.phone,\n" +
+                 "    c.email,\n" +
+                 "    c.birth_year,\n" +
+                 "    g.gender_name\n" +
+                 "    g.gender_id\n" +
+                 "FROM customer c\n" +
+                 "JOIN gender g ON c.gender_gender_id = g.gender_id\n" +
+                 "WHERE c.customer_id = ?;"
+    ;
+
+    try (Connection conn = ConnectionManager.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+        ps.setString(1, "a");
+        ResultSet rs = ps.executeQuery();
+        
+        int cusId = rs.getInt("c.customer_id");
+        String cusName = rs.getString("c.name");
+        String cusPhone = rs.getString("c.phone");
+        String cusEmail = rs.getString("c.email");
+        int cusYr = rs.getInt("c.birth_year");
+        String cusGenderName = rs.getString("c.gender_name");
+        int cusGenderId = rs.getInt("c.gender_id");
+        
+        System.out.println("Customer ID: " + cusId);
+        System.out.println("Customer Name: " + cusName);
+        System.out.println("Customer Phone: " + cusPhone);
+        System.out.println("Customer Email: " + cusEmail);
+        System.out.println("Customer Birth Year: " + cusYr);
+        System.out.println("Customer Gender Name: " + cusGenderName);
+        System.out.println("Customer ID: " + cusGenderId);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error loading customer details: " + e.getMessage());
     }
 }
 
