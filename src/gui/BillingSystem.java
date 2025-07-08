@@ -43,19 +43,7 @@ public class BillingSystem extends javax.swing.JFrame {
     public BillingSystem() {
         initComponents();
         loadCustomersIntoComboBox();
-        
-        DefaultTableModel model = new DefaultTableModel(
-            new Object[][]{},
-            new String[]{"Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del", "product_id", "batch_id"}
-        );
-        ProductTable.setModel(model);
-        hideColumn(ProductTable, 6); // product_id column index
-        hideColumn(ProductTable, 7); // batch_id column index
-        
-        // Optional: Set column renderer & editor for "Del" button
-        ProductTable.getColumn("Del").setCellRenderer(new ButtonRenderer());
-        ProductTable.getColumn("Del").setCellEditor(new ButtonEditor(new JCheckBox()));
-
+        setTableDefault();
     }
 
     /**
@@ -319,6 +307,59 @@ public class BillingSystem extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     // Helper method to hide a column
+    private void setAllValuesAsDefault(){
+        // Clearing the table
+        setTableDefault();
+        
+        // Barcode
+        barcodeTextField.setText("");
+        
+        // Stock
+        StockComboBox.removeAllItems();
+        
+        // Customer Combo Box
+        CustomerComboBox.removeAllItems();
+        loadCustomersIntoComboBox();
+        
+        // Qty
+        QtySpinner.setValue(0);
+        
+        // Labels
+        ProductNameLabel.setText("Product Name: ");
+        UnitPriceLabel.setText("Unit Price: ");
+        StockDateLabel.setText("Stock Date: ");
+        RemAfterBuyLabel.setText("Remaining (After Buy): ");
+        
+        // Given Money
+        GivenMoneySpinner.setValue(0);
+        
+        // Total and Change Label
+        CurrentTotalLabel.setText("Current Label: Rs. 0.00");
+        ChangeLabel.setText("Change: Rs. 0.00");
+    }
+    
+    private void setTableDefault(){
+        ProductTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        DefaultTableModel model = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"Barcode", "Product Name", "Unit Price", "Qty", "Amount", "Del", "product_id", "batch_id"}
+        );
+        ProductTable.setModel(model);
+        hideColumn(ProductTable, 6); // product_id column index
+        hideColumn(ProductTable, 7); // batch_id column index
+        
+        // Optional: Set column renderer & editor for "Del" button
+        ProductTable.getColumn("Del").setCellRenderer(new ButtonRenderer());
+        ProductTable.getColumn("Del").setCellEditor(new ButtonEditor(new JCheckBox()));
+    }
+    
     private void hideColumn(JTable table, int colIndex) {
         TableColumn column = table.getColumnModel().getColumn(colIndex);
         column.setMinWidth(0);
@@ -326,6 +367,7 @@ public class BillingSystem extends javax.swing.JFrame {
         column.setWidth(0);
         column.setPreferredWidth(0);
     }
+    
     private void AddEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEntryButtonActionPerformed
         try {
             // Get selected values
@@ -399,6 +441,7 @@ public class BillingSystem extends javax.swing.JFrame {
        
         saveBillToDatabase(1, customer.getValue());
         
+        setAllValuesAsDefault();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void CalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculateButtonActionPerformed

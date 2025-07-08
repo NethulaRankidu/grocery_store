@@ -39,7 +39,7 @@ public class InvoicePrinter {
             JasperPrint filledReport = JasperFillManager.fillReport(report, params, conn);
 
             // 5. Show or Export
-            JasperViewer.viewReport(filledReport, false); // Show preview
+            JasperViewer.viewReport(filledReport, true); // Show preview
 
             // OR export to PDF
             // JasperExportManager.exportReportToPdfFile(filledReport, "invoice_" + billId + ".pdf");
