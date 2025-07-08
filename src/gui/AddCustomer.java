@@ -74,7 +74,7 @@ public class AddCustomer extends javax.swing.JFrame {
         jLabel3.setText("Customer Name*");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("Add Product");
+        jButton1.setText("Add Customer");
         jButton1.setToolTipText("");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
