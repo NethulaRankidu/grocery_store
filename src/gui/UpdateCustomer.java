@@ -239,17 +239,43 @@ public class UpdateCustomer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        ComboItem customer = (ComboItem) customerCombo.getSelectedItem();
         String name = customerNameBar.getText();
         String phonenum = phoneNumberBar.getText();
         String email = emailBar.getText();
         String birthyr = birthYearBar.getText();
         ComboItem gender = (ComboItem) genderCombo.getSelectedItem();
         
+        System.out.println("Customer ID: " + customer.getValue());
         System.out.println("Name: " + name);
         System.out.println("Phone Number: " + phonenum);
         System.out.println("Email: " + email);
         System.out.println("Birth Year: " + birthyr);
         System.out.println("Gender ID: " + gender.getValue());
+        
+        if(customer.getValue() != 0){
+            String sql = "UPDATE customer SET name = ?, phone = ?, email = ?, birth_year = ?, gender_gender_id = ? WHERE customer_id = ?";
+            try (Connection conn = ConnectionManager.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setString(1, name);
+                ps.setString(2, phonenum);
+                ps.setString(3, email);
+                ps.setInt(4, Integer.parseInt(birthyr));
+                ps.setInt(5, gender.getValue());
+                ps.setInt(6, customer.getValue());
+
+                int rows = ps.executeUpdate();
+                System.out.println("Customer Successfully Updated!");
+                JOptionPane.showMessageDialog(null, "Customer Successfully Updated!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a customer", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+        }
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
