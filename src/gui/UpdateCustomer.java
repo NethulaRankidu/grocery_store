@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
+import backend.Product;
 import backend.ProductDAO;
 
 
@@ -27,6 +28,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
     public UpdateCustomer() {
         initComponents();
         loadGendersIntoComboBox();
+        loadCustomersIntoComboBox();
     }
 
     /**
@@ -274,6 +276,23 @@ public class UpdateCustomer extends javax.swing.JFrame {
 
     private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         // TODO add your handling code here:
+        customerCombo.addActionListener(e -> {
+            ComboItem selected = (ComboItem) customerCombo.getSelectedItem();
+            if (selected != null) {
+                int selectedId = selected.getValue();
+                String selectedText = selected.getLabel();
+
+                System.out.println("Selected ID: " + selectedId);
+                System.out.println("Selected Text: " + selectedText);
+
+                if (selectedId == 0) {
+                    System.out.println("User selected 'Select Customer' (default option)");
+                } else {
+                    loadCustomerDetailsIntoBoxes(selectedId);
+                }
+            }
+        });
+        
     }//GEN-LAST:event_customerComboActionPerformed
 
     /**
@@ -291,69 +310,101 @@ public class UpdateCustomer extends javax.swing.JFrame {
         
     }
     
-public void loadGendersIntoComboBox() {
-    String sql = "SELECT gender_id, gender_name FROM gender";
+    public void loadGendersIntoComboBox() {
+        String sql = "SELECT gender_id, gender_name FROM gender";
 
-    try (Connection conn = ConnectionManager.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        
-        genderCombo.removeAllItems();
-        genderCombo.addItem(new ComboItem(0, "Select Gender"));
-        while (rs.next()) {
-            int id = rs.getInt("gender_id");
-            String name = rs.getString("gender_name");
-            System.out.println("→ " + id + ": " + name);
-            genderCombo.addItem(new ComboItem(id, name));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+
+            genderCombo.removeAllItems();
+            genderCombo.addItem(new ComboItem(0, "Select Gender"));
+            while (rs.next()) {
+                int id = rs.getInt("gender_id");
+                String name = rs.getString("gender_name");
+                System.out.println("→ " + id + ": " + name);
+                genderCombo.addItem(new ComboItem(id, name));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
     }
-}
+    
+    public void loadCustomersIntoComboBox() {
+        String sql = "SELECT customer_id, name, birth_year FROM customer";
 
-public void loadCustomerDetailsIntoBoxes() {
-    String sql = "SELECT \n" +
-                 "    c.customer_id,\n" +
-                 "    c.name,\n" +
-                 "    c.phone,\n" +
-                 "    c.email,\n" +
-                 "    c.birth_year,\n" +
-                 "    g.gender_name\n" +
-                 "    g.gender_id\n" +
-                 "FROM customer c\n" +
-                 "JOIN gender g ON c.gender_gender_id = g.gender_id\n" +
-                 "WHERE c.customer_id = ?;"
-    ;
+        customerCombo.removeAllItems();
+        customerCombo.addItem(new ComboItem(0, "Select Customer"));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-    try (Connection conn = ConnectionManager.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)){
-        ps.setString(1, "a");
-        ResultSet rs = ps.executeQuery();
-        
-        int cusId = rs.getInt("c.customer_id");
-        String cusName = rs.getString("c.name");
-        String cusPhone = rs.getString("c.phone");
-        String cusEmail = rs.getString("c.email");
-        int cusYr = rs.getInt("c.birth_year");
-        String cusGenderName = rs.getString("c.gender_name");
-        int cusGenderId = rs.getInt("c.gender_id");
-        
-        System.out.println("Customer ID: " + cusId);
-        System.out.println("Customer Name: " + cusName);
-        System.out.println("Customer Phone: " + cusPhone);
-        System.out.println("Customer Email: " + cusEmail);
-        System.out.println("Customer Birth Year: " + cusYr);
-        System.out.println("Customer Gender Name: " + cusGenderName);
-        System.out.println("Customer ID: " + cusGenderId);
+            // Loop through result set
+            while (rs.next()) {
+                int id = rs.getInt("customer_id");
+                String name = rs.getString("name");
+                String birthYear = rs.getString("birth_year");
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error loading customer details: " + e.getMessage());
+                System.out.println("→ " + id + ": " + name);
+                customerCombo.addItem(new ComboItem(id, "[" + id + "] " + name + " [" + birthYear + "]"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+        }
     }
-}
+    
+
+    public void loadCustomerDetailsIntoBoxes(int cusId) {
+        String sql = "SELECT \n" +
+                     "    c.customer_id,\n" +
+                     "    c.name,\n" +
+                     "    c.phone,\n" +
+                     "    c.email,\n" +
+                     "    c.birth_year,\n" +
+                     "    g.gender_name,\n" +
+                     "    g.gender_id\n" +
+                     "FROM customer c\n" +
+                     "JOIN gender g ON c.gender_gender_id = g.gender_id\n" +
+                     "WHERE c.customer_id = ?;"
+        ;
+
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, cusId);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                String cusName = rs.getString("c.name");
+                String cusPhone = rs.getString("c.phone");
+                String cusEmail = rs.getString("c.email");
+                int cusYr = rs.getInt("c.birth_year");
+                String cusGenderName = rs.getString("g.gender_name");
+                int cusGenderId = rs.getInt("g.gender_id");
+
+                System.out.println("Customer ID: " + cusId);
+                System.out.println("Customer Name: " + cusName);
+                System.out.println("Customer Phone: " + cusPhone);
+                System.out.println("Customer Email: " + cusEmail);
+                System.out.println("Customer Birth Year: " + cusYr);
+                System.out.println("Customer Gender Name: " + cusGenderName);
+                System.out.println("Customer ID: " + cusGenderId);
+
+                customerNameBar.setText(cusName);
+                phoneNumberBar.setText(cusPhone);
+                emailBar.setText(cusEmail);
+                birthYearBar.setText(cusYr + "");
+                genderCombo.setSelectedIndex(cusGenderId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customer details: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField birthYearBar;
