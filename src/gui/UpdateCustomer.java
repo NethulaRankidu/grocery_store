@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
-import backend.Product;
-import backend.ProductDAO;
 
 
 /**
