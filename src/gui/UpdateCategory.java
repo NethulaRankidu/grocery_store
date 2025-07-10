@@ -163,6 +163,29 @@ public class UpdateCategory extends javax.swing.JFrame {
         }
     }
     
+    public void loadCategoryDetailsIntoBoxes(int catId) {
+        String sql = "SELECT category_name FROM category WHERE category_id = ?"
+        ;
+
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, catId);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                String catName = rs.getString("category_name");
+
+                System.out.println("Category ID: " + catId);
+                System.out.println("Category Name: " + catName);
+
+                categoryNameBar.setText(catName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading category details: " + e.getMessage());
+        }
+    }
+    
     private void categoryNameBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryNameBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_categoryNameBarActionPerformed
@@ -183,6 +206,20 @@ public class UpdateCategory extends javax.swing.JFrame {
 
     private void categoryComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboActionPerformed
         // TODO add your handling code here:
+        ComboItem selected = (ComboItem) categoryCombo.getSelectedItem();
+        if (selected != null) {
+            int selectedId = selected.getValue();
+            String selectedText = selected.getLabel();
+
+            System.out.println("Selected ID: " + selectedId);
+            System.out.println("Selected Text: " + selectedText);
+
+            if (selectedId == 0) {
+                System.out.println("User selected 'Select Category' (default option)");
+            } else {
+                loadCategoryDetailsIntoBoxes(selectedId);
+            }
+        }
     }//GEN-LAST:event_categoryComboActionPerformed
 
     /**
