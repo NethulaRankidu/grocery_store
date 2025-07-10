@@ -26,7 +26,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     public UpdateProduct() {
         initComponents();
         loadCategoriesIntoComboBox();
-        loadCustomersIntoComboBox();
+        loadProductsIntoComboBox();
     }
 
     /**
@@ -209,6 +209,7 @@ public class UpdateProduct extends javax.swing.JFrame {
 
     private void productComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productComboActionPerformed
         // TODO add your handling code here:
+        loadProductDetailsIntoBoxes(productCombo.getSelectedIndex());
     }//GEN-LAST:event_productComboActionPerformed
 
     /**
@@ -227,7 +228,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     }
     
     public void loadCategoriesIntoComboBox() {
-        String sql = "SELECT category_id, category_name FROM category ORDER BY category_name ASC";
+        String sql = "SELECT category_id, category_name FROM category";
 
         try (Connection conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -249,8 +250,8 @@ public class UpdateProduct extends javax.swing.JFrame {
         }
     }
 
-    public void loadCustomersIntoComboBox() {
-        String sql = "SELECT product_id, product_name, product_barcode FROM products ORDER BY product_barcode ASC";
+    public void loadProductsIntoComboBox() {
+        String sql = "SELECT product_id, product_name, product_barcode FROM products";
 
         productCombo.removeAllItems();
         productCombo.addItem(new ComboItem(0, "Select Product"));
@@ -265,12 +266,40 @@ public class UpdateProduct extends javax.swing.JFrame {
                 String barcode = rs.getString("product_barcode");
 
                 System.out.println("→ " + id + ": " + name);
-                productCombo.addItem(new ComboItem(id, " [" + barcode + "] " + name));
+                productCombo.addItem(new ComboItem(id, "[" + id + "] " + " [" + barcode + "] " + name));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+        }
+    }
+    
+    public void loadProductDetailsIntoBoxes(int proId) {
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, proId);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                String proName = rs.getString("product_name");
+                String proBarc = rs.getString("product_barcode");
+                int catId = rs.getInt("category_id");
+
+                System.out.println("Product ID: " + proId);
+                System.out.println("Product Name: " + proName);
+                System.out.println("Product Barcode: " + proBarc);
+                System.out.println("Category ID: " + catId);
+
+                ProductNameBar.setText(proName);
+                BarcodeBar.setText(proBarc);
+                CategoryCombo.setSelectedIndex(catId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customer details: " + e.getMessage());
         }
     }
 
