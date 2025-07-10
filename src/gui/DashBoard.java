@@ -446,6 +446,11 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void boughtByCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boughtByCustomerReportActionPerformed
         // TODO add your handling code here:
+        ItemsBoughtReportGUI bought = new ItemsBoughtReportGUI();
+        bought.setVisible(true);
+        
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_boughtByCustomerReportActionPerformed
     
     public int getCountForPeriod(String sql) {
