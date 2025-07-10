@@ -171,7 +171,7 @@ public class UpdateProduct extends javax.swing.JFrame {
                     .addComponent(CategoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(295, 295, 295))
+                .addContainerGap())
         );
 
         pack();
@@ -191,11 +191,33 @@ public class UpdateProduct extends javax.swing.JFrame {
         String productName = ProductNameBar.getText();
         String barcodeId = BarcodeBar.getText();
         ComboItem categoryId = (ComboItem) CategoryCombo.getSelectedItem();
+        ComboItem productId = (ComboItem) productCombo.getSelectedItem();
         
         System.out.println("Product Name: " + productName);
         System.out.println("Product Barcode: " + barcodeId);
         System.out.println("Product Category: " + categoryId.getValue());
        
+        if(productId.getValue() != 0 && categoryId.getValue() != 0){
+            String sql = "UPDATE products SET product_name = ?, product_barcode = ?, category_id = ? WHERE product_id = ?";
+            try (Connection conn = ConnectionManager.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setString(1, productName);
+                ps.setString(2, barcodeId);
+                ps.setInt(3, categoryId.getValue());
+                ps.setInt(4, productId.getValue());
+
+                int rows = ps.executeUpdate();
+                System.out.println("Product Successfully Updated!");
+                JOptionPane.showMessageDialog(null, "Product Successfully Updated!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else if(productId.getValue() == 0){
+            JOptionPane.showMessageDialog(null, "Please select a product", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+        }else if(categoryId.getValue() == 0){
+            JOptionPane.showMessageDialog(null, "Please select a category", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
