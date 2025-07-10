@@ -71,13 +71,12 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         updateProducts = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        updateCategory = new javax.swing.JButton();
+        updateCustomer = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        billsReport = new javax.swing.JButton();
+        boughtByCustomerReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -259,61 +258,51 @@ public class DashBoard extends javax.swing.JFrame {
         });
         jPanel3.add(updateProducts);
 
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton9.setText("Update Category");
-        jButton9.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        updateCategory.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        updateCategory.setText("Update Category");
+        updateCategory.setPreferredSize(new java.awt.Dimension(75, 30));
+        updateCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                updateCategoryActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9);
+        jPanel3.add(updateCategory);
 
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton10.setText("Update Customer");
-        jButton10.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        updateCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        updateCustomer.setText("Update Customer");
+        updateCustomer.setPreferredSize(new java.awt.Dimension(75, 30));
+        updateCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                updateCustomerActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton10);
+        jPanel3.add(updateCustomer);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel8.setText("Reports");
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
 
-        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton12.setText("Bills");
-        jButton12.setActionCommand("");
-        jButton12.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        billsReport.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        billsReport.setText("Bills");
+        billsReport.setActionCommand("");
+        billsReport.setPreferredSize(new java.awt.Dimension(75, 30));
+        billsReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                billsReportActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton12);
+        jPanel4.add(billsReport);
 
-        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton13.setText("All Bought from a customer");
-        jButton13.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        boughtByCustomerReport.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        boughtByCustomerReport.setText("All Bought by a customer");
+        boughtByCustomerReport.setPreferredSize(new java.awt.Dimension(75, 30));
+        boughtByCustomerReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                boughtByCustomerReportActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton13);
-
-        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton14.setText("Update Customer");
-        jButton14.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton14);
+        jPanel4.add(boughtByCustomerReport);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -421,27 +410,43 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void updateProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProductsActionPerformed
         // TODO add your handling code here:
+        UpdateProduct updateProduct = new UpdateProduct();  // or any other JFrame
+        updateProduct.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_updateProductsActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void updateCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCategoryActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+        UpdateCategory updateCategory = new UpdateCategory();  // or any other JFrame
+        updateCategory.setVisible(true);
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_updateCategoryActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void updateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+        UpdateCustomer updateCustomer = new UpdateCustomer();  // or any other JFrame
+        updateCustomer.setVisible(true);
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_updateCustomerActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void billsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billsReportActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+        BillingReportGUI billingReport = new BillingReportGUI();  // or any other JFrame
+        billingReport.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_billsReportActionPerformed
+
+    private void boughtByCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boughtByCustomerReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boughtByCustomerReportActionPerformed
     
     public int getCountForPeriod(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
@@ -666,13 +671,10 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton addProducts;
     private javax.swing.JButton addStock;
     private javax.swing.JButton billing;
+    private javax.swing.JButton billsReport;
+    private javax.swing.JButton boughtByCustomerReport;
     private javax.swing.JComboBox<String> durationCombo;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -689,6 +691,8 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel salesPanel1;
     private javax.swing.JPanel salesPanel2;
     private javax.swing.JLabel transactionNum;
+    private javax.swing.JButton updateCategory;
+    private javax.swing.JButton updateCustomer;
     private javax.swing.JButton updateProducts;
     // End of variables declaration//GEN-END:variables
 }
