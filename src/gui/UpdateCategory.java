@@ -4,9 +4,14 @@
  */
 package gui;
 
-import backend.ProductDAO;
 import com.formdev.flatlaf.FlatDarkLaf;
 import backend.ComboItem;
+import backend.ConnectionManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +24,7 @@ public class UpdateCategory extends javax.swing.JFrame {
      */
     public UpdateCategory() {
         initComponents();
+        loadCategoriesIntoComboBox();
     }
 
     /**
@@ -133,6 +139,30 @@ public class UpdateCategory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void loadCategoriesIntoComboBox() {
+        String sql = "SELECT category_id, category_name FROM category";
+
+        categoryCombo.removeAllItems();
+        categoryCombo.addItem(new ComboItem(0, "Select Category"));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            // Loop through result set
+            while (rs.next()) {
+                int id = rs.getInt("category_id");
+                String name = rs.getString("category_name");
+
+                System.out.println("→ " + id + ": " + name);
+                categoryCombo.addItem(new ComboItem(id, "[" + id + "] " + name));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading catgories: " + e.getMessage());
+        }
+    }
+    
     private void categoryNameBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryNameBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_categoryNameBarActionPerformed
