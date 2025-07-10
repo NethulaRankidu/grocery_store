@@ -144,6 +144,13 @@ public class BillingReportGUI extends javax.swing.JFrame {
     }
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         // TODO add your handling code here:
+        ComboItem selected = (ComboItem) categoryCombo.getSelectedItem();
+        int selectedId = selected.getValue();
+        if (selectedId != 0){
+            generateInvoice(selectedId);
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a customer");
+        }
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
