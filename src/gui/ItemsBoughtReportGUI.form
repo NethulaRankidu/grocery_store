@@ -36,7 +36,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" pref="223" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="categoryCombo" pref="647" max="32767" attributes="0"/>
+                              <Component id="customerCombo" pref="647" max="32767" attributes="0"/>
                           </Group>
                           <Component id="addCategoryButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -57,7 +57,7 @@
               <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="categoryCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="customerCombo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="addCategoryButton" min="-2" pref="33" max="-2" attributes="0"/>
@@ -111,7 +111,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="categoryCombo">
+    <Component class="javax.swing.JComboBox" name="customerCombo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -121,7 +121,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryComboActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customerComboActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboItem&gt;"/>

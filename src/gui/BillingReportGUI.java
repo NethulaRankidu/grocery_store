@@ -149,7 +149,7 @@ public class BillingReportGUI extends javax.swing.JFrame {
         if (selectedId != 0){
             generateInvoice(selectedId);
         }else{
-            JOptionPane.showMessageDialog(null, "Please select a customer");
+            JOptionPane.showMessageDialog(null, "Please select a Bill");
         }
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 

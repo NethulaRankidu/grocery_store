@@ -7,6 +7,7 @@ package gui;
 import com.formdev.flatlaf.FlatDarkLaf;
 import backend.ComboItem;
 import backend.ConnectionManager;
+import static backend.allBoughtItemsViewer.generateBoughtItems;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
      */
     public ItemsBoughtReportGUI() {
         initComponents();
+        loadCustomersIntoComboBox();
     }
 
     /**
@@ -39,7 +41,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         addCategoryButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
-        categoryCombo = new javax.swing.JComboBox<>();
+        customerCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,10 +71,10 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
             }
         });
 
-        categoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        categoryCombo.addActionListener(new java.awt.event.ActionListener() {
+        customerCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        customerCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoryComboActionPerformed(evt);
+                customerComboActionPerformed(evt);
             }
         });
 
@@ -92,7 +94,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(categoryCombo, 0, 647, Short.MAX_VALUE))
+                                .addComponent(customerCombo, 0, 647, Short.MAX_VALUE))
                             .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
@@ -106,7 +108,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
@@ -118,6 +120,13 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
    
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         // TODO add your handling code here:
+        ComboItem selected = (ComboItem) customerCombo.getSelectedItem();
+        int selectedId = selected.getValue();
+        if (selectedId != 0){
+            generateBoughtItems(selectedId);
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a customer");
+        }
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -129,10 +138,34 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void categoryComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboActionPerformed
+    private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_categoryComboActionPerformed
+    }//GEN-LAST:event_customerComboActionPerformed
 
+    public void loadCustomersIntoComboBox() {
+        String sql = "SELECT customer_id, name, birth_year FROM customer";
+
+        customerCombo.removeAllItems();
+        customerCombo.addItem(new ComboItem(0, "Select Customer"));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            // Loop through result set
+            while (rs.next()) {
+                int id = rs.getInt("customer_id");
+                String name = rs.getString("name");
+                String birthYear = rs.getString("birth_year");
+
+                System.out.println("→ " + id + ": " + name);
+                customerCombo.addItem(new ComboItem(id, "[" + id + "] " + name + " [" + birthYear + "]"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -150,7 +183,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoryButton;
     private javax.swing.JButton backButton;
-    private javax.swing.JComboBox<ComboItem> categoryCombo;
+    private javax.swing.JComboBox<ComboItem> customerCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
