@@ -498,7 +498,7 @@ public class DashBoard extends javax.swing.JFrame {
             profitNum.setText("");
             
             // Sold Items
-            int todaySalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
+            int todaySalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
             salesNum.setText(todaySalesCount + "");
             System.out.println("Sales today: " + todaySalesCount);
             
@@ -529,7 +529,7 @@ public class DashBoard extends javax.swing.JFrame {
             profitNum.setText("");
             
             // Sold Items
-            int weekSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
+            int weekSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
             salesNum.setText(weekSalesCount + "");
             System.out.println("Sales this week: " + weekSalesCount);
             
@@ -560,7 +560,7 @@ public class DashBoard extends javax.swing.JFrame {
             profitNum.setText("");
             
             // Sold Items
-            int monthSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
+            int monthSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
             salesNum.setText(monthSalesCount + "");
             System.out.println("Sales this month: " + monthSalesCount);
             
@@ -593,7 +593,7 @@ public class DashBoard extends javax.swing.JFrame {
             profitNum.setText("");
             
             // Sold Items
-            int yearSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
+            int yearSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE())");
             salesNum.setText(yearSalesCount + "");
             System.out.println("Sales this year: " + yearSalesCount);
             
@@ -625,7 +625,7 @@ public class DashBoard extends javax.swing.JFrame {
             profitNum.setText("");
             
             // Sold Items
-            int lifetimeSalesCount = getCountForPeriod("SELECT COUNT(*) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
+            int lifetimeSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id");
             salesNum.setText(lifetimeSalesCount + "");
             System.out.println("Sales lifetime: " + lifetimeSalesCount);
             
