@@ -62,12 +62,22 @@ public class DashBoard extends javax.swing.JFrame {
         durationCombo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        billing = new javax.swing.JButton();
+        addProducts = new javax.swing.JButton();
+        addCategory = new javax.swing.JButton();
+        addCustomer = new javax.swing.JButton();
+        addStock = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        updateProducts = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,61 +178,61 @@ public class DashBoard extends javax.swing.JFrame {
         durationCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Today", "This Week", "This Month", "This Year", "Lifetime" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel5.setText("Actions");
+        jLabel5.setText("Adding");
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton1.setText("Billing");
-        jButton1.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        billing.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        billing.setText("Billing");
+        billing.setPreferredSize(new java.awt.Dimension(75, 30));
+        billing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                billingActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(billing);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton2.setText("+ Add Products");
-        jButton2.setActionCommand("");
-        jButton2.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addProducts.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        addProducts.setText("+ Add Products");
+        addProducts.setActionCommand("");
+        addProducts.setPreferredSize(new java.awt.Dimension(75, 30));
+        addProducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addProductsActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel2.add(addProducts);
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton3.setText("+ Add Category");
-        jButton3.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        addCategory.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        addCategory.setText("+ Add Category");
+        addCategory.setPreferredSize(new java.awt.Dimension(75, 30));
+        addCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                addCategoryActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3);
+        jPanel2.add(addCategory);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton4.setText("+ Add Customer");
-        jButton4.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        addCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        addCustomer.setText("+ Add Customer");
+        addCustomer.setPreferredSize(new java.awt.Dimension(75, 30));
+        addCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                addCustomerActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4);
+        jPanel2.add(addCustomer);
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton6.setText("+ Add Stock");
-        jButton6.setActionCommand("");
-        jButton6.setPreferredSize(new java.awt.Dimension(75, 30));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        addStock.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        addStock.setText("+ Add Stock");
+        addStock.setActionCommand("");
+        addStock.setPreferredSize(new java.awt.Dimension(75, 30));
+        addStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                addStockActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton6);
+        jPanel2.add(addStock);
 
         jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         jButton5.setText("❌ Quit");
@@ -232,6 +242,78 @@ public class DashBoard extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel6.setText("Updating");
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
+
+        updateProducts.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        updateProducts.setText("Update Products");
+        updateProducts.setActionCommand("");
+        updateProducts.setPreferredSize(new java.awt.Dimension(75, 30));
+        updateProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateProductsActionPerformed(evt);
+            }
+        });
+        jPanel3.add(updateProducts);
+
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton9.setText("Update Category");
+        jButton9.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton9);
+
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton10.setText("Update Customer");
+        jButton10.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton10);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel8.setText("Reports");
+
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
+
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton12.setText("Bills");
+        jButton12.setActionCommand("");
+        jButton12.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton12);
+
+        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton13.setText("All Bought from a customer");
+        jButton13.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton13);
+
+        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton14.setText("Update Customer");
+        jButton14.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton14);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,11 +328,15 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(durationCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -268,62 +354,94 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void addProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductsActionPerformed
         // TODO add your handling code here:
         AddProduct product = new AddProduct();
         product.setVisible(true);
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_addProductsActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void billingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingActionPerformed
         // TODO add your handling code here:
         BillingSystem billing = new BillingSystem();
         billing.setVisible(true);
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_billingActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void addCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryActionPerformed
         // TODO add your handling code here:
         AddCategory category = new AddCategory();  // or any other JFrame
         category.setVisible(true);
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_addCategoryActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void addCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerActionPerformed
         // TODO add your handling code here:
         AddCustomer category = new AddCustomer();  // or any other JFrame
         category.setVisible(true);
         
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_addCustomerActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         // TODO add your handling code here:
         AddStock stock = new AddStock();  // or any other JFrame
         stock.setVisible(true);
         
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_addStockActionPerformed
+
+    private void updateProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProductsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateProductsActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
     
     public int getCountForPeriod(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
@@ -543,24 +661,34 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
+    private javax.swing.JButton addCategory;
+    private javax.swing.JButton addCustomer;
+    private javax.swing.JButton addProducts;
+    private javax.swing.JButton addStock;
+    private javax.swing.JButton billing;
     private javax.swing.JComboBox<String> durationCombo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel profitNum;
     private javax.swing.JLabel salesNum;
     private javax.swing.JPanel salesPanel;
     private javax.swing.JPanel salesPanel1;
     private javax.swing.JPanel salesPanel2;
     private javax.swing.JLabel transactionNum;
+    private javax.swing.JButton updateProducts;
     // End of variables declaration//GEN-END:variables
 }
