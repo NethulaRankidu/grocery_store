@@ -300,23 +300,20 @@ public class UpdateCustomer extends javax.swing.JFrame {
 
     private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         // TODO add your handling code here:
-        customerCombo.addActionListener(e -> {
-            ComboItem selected = (ComboItem) customerCombo.getSelectedItem();
-            if (selected != null) {
-                int selectedId = selected.getValue();
-                String selectedText = selected.getLabel();
+        ComboItem selected = (ComboItem) customerCombo.getSelectedItem();
+        if (selected != null) {
+            int selectedId = selected.getValue();
+            String selectedText = selected.getLabel();
 
-                System.out.println("Selected ID: " + selectedId);
-                System.out.println("Selected Text: " + selectedText);
+            System.out.println("Selected ID: " + selectedId);
+            System.out.println("Selected Text: " + selectedText);
 
-                if (selectedId == 0) {
-                    System.out.println("User selected 'Select Customer' (default option)");
-                } else {
-                    loadCustomerDetailsIntoBoxes(selectedId);
-                }
+            if (selectedId == 0) {
+                System.out.println("User selected 'Select Customer' (default option)");
+            } else {
+                loadCustomerDetailsIntoBoxes(selectedId);
             }
-        });
-        
+        }
     }//GEN-LAST:event_customerComboActionPerformed
 
     /**
