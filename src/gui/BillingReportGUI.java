@@ -7,6 +7,7 @@ package gui;
 import com.formdev.flatlaf.FlatDarkLaf;
 import backend.ComboItem;
 import backend.ConnectionManager;
+import static backend.InvoicePrinter.generateInvoice;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class BillingReportGUI extends javax.swing.JFrame {
      */
     public BillingReportGUI() {
         initComponents();
+        addBillsToComboBox();
     }
 
     /**
@@ -116,6 +118,30 @@ public class BillingReportGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
    
+    private void addBillsToComboBox(){
+        String sql = "SELECT b.bill_id, b.datetime, b.total_price, c.`name` FROM bill b LEFT JOIN customer c ON b.customer_id=c.customer_id";
+
+        categoryCombo.removeAllItems();
+        categoryCombo.addItem(new ComboItem(0, "Select Bill"));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            // Loop through result set
+            while (rs.next()) {
+                int id = rs.getInt("bill_id");
+                String dateTime = rs.getString("datetime");
+                String totalPrice = rs.getString("total_price");
+                String name = rs.getString("name");
+
+                categoryCombo.addItem(new ComboItem(id, "[ID: " + id + "] " +"[Name: " + name + "] " +"[Price: " + totalPrice + "] " +"[DT: " + dateTime + "] "));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+        }
+    }
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addCategoryButtonActionPerformed
