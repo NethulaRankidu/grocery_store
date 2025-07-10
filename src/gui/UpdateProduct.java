@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
-import backend.ProductDAO;
 
 
 /**
@@ -27,6 +26,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     public UpdateProduct() {
         initComponents();
         loadCategoriesIntoComboBox();
+        loadCustomersIntoComboBox();
     }
 
     /**
@@ -226,28 +226,53 @@ public class UpdateProduct extends javax.swing.JFrame {
         
     }
     
-public void loadCategoriesIntoComboBox() {
-    String sql = "SELECT category_id, category_name FROM category";
+    public void loadCategoriesIntoComboBox() {
+        String sql = "SELECT category_id, category_name FROM category";
 
-    try (Connection conn = ConnectionManager.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        
-        CategoryCombo.removeAllItems();
-        CategoryCombo.addItem(new ComboItem(0, "Select Category"));
-        while (rs.next()) {
-            int id = rs.getInt("category_id");
-            String name = rs.getString("category_name");
-            System.out.println("→ " + id + ": " + name);
-            CategoryCombo.addItem(new ComboItem(id, name));
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+
+            CategoryCombo.removeAllItems();
+            CategoryCombo.addItem(new ComboItem(0, "Select Category"));
+            while (rs.next()) {
+                int id = rs.getInt("category_id");
+                String name = rs.getString("category_name");
+                System.out.println("→ " + id + ": " + name);
+                CategoryCombo.addItem(new ComboItem(id, name));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
     }
-}
+
+    public void loadCustomersIntoComboBox() {
+        String sql = "SELECT product_id, product_name, product_barcode FROM products";
+
+        productCombo.removeAllItems();
+        productCombo.addItem(new ComboItem(0, "Select Product"));
+        try (Connection conn = ConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            
+            // Loop through result set
+            while (rs.next()) {
+                int id = rs.getInt("product_id");
+                String name = rs.getString("product_name");
+                String barcode = rs.getString("product_barcode");
+
+                System.out.println("→ " + id + ": " + name);
+                productCombo.addItem(new ComboItem(id, "[" + id + "] " + name + " [" + barcode + "]"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BarcodeBar;
