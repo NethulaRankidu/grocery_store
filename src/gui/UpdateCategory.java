@@ -164,8 +164,7 @@ public class UpdateCategory extends javax.swing.JFrame {
     }
     
     public void loadCategoryDetailsIntoBoxes(int catId) {
-        String sql = "SELECT category_name FROM category WHERE category_id = ?"
-        ;
+        String sql = "SELECT category_name FROM category WHERE category_id = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
@@ -193,6 +192,27 @@ public class UpdateCategory extends javax.swing.JFrame {
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         // TODO add your handling code here:
         String cat = categoryNameBar.getText();
+        ComboItem name = (ComboItem) categoryCombo.getSelectedItem();
+        
+        if(name.getValue() != 0){
+            String sql = "UPDATE category SET category_name = ? WHERE category_id = ?";
+            try (Connection conn = ConnectionManager.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setString(1, cat);
+                ps.setInt(2, name.getValue());
+
+                int rows = ps.executeUpdate();
+                System.out.println("Customer Successfully Updated!");
+                JOptionPane.showMessageDialog(null, "Customer Successfully Updated!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadCategoriesIntoComboBox();
+                categoryNameBar.setText("");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a customer", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
