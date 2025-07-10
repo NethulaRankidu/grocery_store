@@ -85,6 +85,11 @@ public class AddStock extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Expiry Date");
@@ -224,6 +229,15 @@ public class AddStock extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        DashBoard dashboard = new DashBoard();  // or any other JFrame
+        dashboard.setVisible(true);
+
+        // Close the current frame
+        this.dispose(); // closes the frame that this button is part of
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void loadCategoriesIntoComboBox() {
         String sql = "SELECT product_id, product_name, product_barcode FROM products";
