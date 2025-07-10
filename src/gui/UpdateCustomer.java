@@ -252,7 +252,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         System.out.println("Birth Year: " + birthyr);
         System.out.println("Gender ID: " + gender.getValue());
         
-        if(customer.getValue() != 0){
+        if(customer.getValue() != 0 && gender.getValue() != 0){
             String sql = "UPDATE customer SET name = ?, phone = ?, email = ?, birth_year = ?, gender_gender_id = ? WHERE customer_id = ?";
             try (Connection conn = ConnectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -270,8 +270,10 @@ public class UpdateCustomer extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        }else if(customer.getValue() == 0){
             JOptionPane.showMessageDialog(null, "Please select a customer", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+        }else if(gender.getValue() == 0){
+            JOptionPane.showMessageDialog(null, "Please select a gender", "Insert Failed", JOptionPane.WARNING_MESSAGE);
         }
         
 
