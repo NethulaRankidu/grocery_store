@@ -227,11 +227,11 @@ public class UpdateProduct extends javax.swing.JFrame {
     }
     
     public void loadCategoriesIntoComboBox() {
-        String sql = "SELECT category_id, category_name FROM category";
+        String sql = "SELECT category_id, category_name FROM category ORDER BY category_name ASC";
 
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
 
             CategoryCombo.removeAllItems();
