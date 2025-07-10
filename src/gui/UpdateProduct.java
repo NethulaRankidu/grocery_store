@@ -250,7 +250,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     }
 
     public void loadCustomersIntoComboBox() {
-        String sql = "SELECT product_id, product_name, product_barcode FROM products";
+        String sql = "SELECT product_id, product_name, product_barcode FROM products ORDER BY product_barcode ASC";
 
         productCombo.removeAllItems();
         productCombo.addItem(new ComboItem(0, "Select Product"));
@@ -265,7 +265,7 @@ public class UpdateProduct extends javax.swing.JFrame {
                 String barcode = rs.getString("product_barcode");
 
                 System.out.println("→ " + id + ": " + name);
-                productCombo.addItem(new ComboItem(id, "[" + id + "] " + name + " [" + barcode + "]"));
+                productCombo.addItem(new ComboItem(id, " [" + barcode + "] " + name));
             }
 
         } catch (SQLException e) {
