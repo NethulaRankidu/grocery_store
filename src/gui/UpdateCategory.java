@@ -203,7 +203,7 @@ public class UpdateCategory extends javax.swing.JFrame {
                 ps.setInt(2, name.getValue());
 
                 int rows = ps.executeUpdate();
-                System.out.println("Customer Successfully Updated!");
+                System.out.println("Category Successfully Updated!");
                 JOptionPane.showMessageDialog(null, "Customer Successfully Updated!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadCategoriesIntoComboBox();
                 categoryNameBar.setText("");
