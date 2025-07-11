@@ -51,7 +51,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addCategoryButton.setText("Check Bill");
+        addCategoryButton.setText("Check Report");
         addCategoryButton.setToolTipText("");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +61,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Billing ID");
+        jLabel5.setText("Customer ID");
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         backButton.setText("← Back ");
