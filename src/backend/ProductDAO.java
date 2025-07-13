@@ -376,12 +376,7 @@ public class ProductDAO {
     }
     
     public StockBatchDetails getStockBatchDetailsById(int batchId) {
-        String sql = """
-            SELECT p.product_name, b.product_price, b.received_date, b.remaining_items, p.product_id
-            FROM product_batches b
-            JOIN products p ON b.product_id = p.product_id
-            WHERE b.batch_id = ?
-        """;
+        String sql = "SELECT p.product_name, b.product_price, b.received_date, b.remaining_items, p.product_id FROM product_batches b JOIN products p ON b.product_id = p.product_id WHERE b.batch_id = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)) {
