@@ -13,6 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import backend.TableUtils;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,11 +40,29 @@ public class BillingReportGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         addCategoryButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         categoryCombo = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        addCategoryButton1 = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,7 +71,6 @@ public class BillingReportGUI extends javax.swing.JFrame {
         jLabel1.setText("View Billing Reports");
         jLabel1.setToolTipText("");
 
-        addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         addCategoryButton.setText("Check Bill");
         addCategoryButton.setToolTipText("");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
@@ -60,7 +80,6 @@ public class BillingReportGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Billing ID");
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -71,10 +90,36 @@ public class BillingReportGUI extends javax.swing.JFrame {
             }
         });
 
-        categoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         categoryCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoryComboActionPerformed(evt);
+            }
+        });
+        categoryCombo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                categoryComboPropertyChange(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        addCategoryButton1.setText("Print Bill");
+        addCategoryButton1.setToolTipText("");
+        addCategoryButton1.setPreferredSize(new java.awt.Dimension(75, 20));
+        addCategoryButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCategoryButton1ActionPerformed(evt);
             }
         });
 
@@ -89,14 +134,20 @@ public class BillingReportGUI extends javax.swing.JFrame {
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(categoryCombo, 0, 647, Short.MAX_VALUE))
-                            .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(categoryCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addCategoryButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,13 +156,16 @@ public class BillingReportGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoryCombo, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addCategoryButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -142,15 +196,33 @@ public class BillingReportGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
         }
     }
-    private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
-        // TODO add your handling code here:
+    
+    public void loadTableData() {
         ComboItem selected = (ComboItem) categoryCombo.getSelectedItem();
         int selectedId = selected.getValue();
         if (selectedId != 0){
-            generateInvoice(selectedId);
+            try (Connection conn = ConnectionManager.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT p.product_name, si.unit_price, si.quantity, (si.quantity * si.unit_price) AS amount FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id JOIN customer c ON b.customer_id = c.customer_id JOIN admin a ON b.cashier_id = a.user_id JOIN products p ON si.product_id = p.product_id WHERE b.bill_id = " + selectedId)) {
+
+                DefaultTableModel model = TableUtils.buildTableModel(rs);
+                model.setColumnIdentifiers(new Object[] {
+                    "Product Name", "Unit Price", "Quantity", "Amount"
+                });
+
+                jTable2.setModel(model); // your JTable instance
+
+            } catch (SQLException e) {
+                e.printStackTrace(); // Or show in a dialog
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a Bill");
+            return;
         }
+    }
+    private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
+        // TODO add your handling code here:
+        loadTableData();
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -165,6 +237,21 @@ public class BillingReportGUI extends javax.swing.JFrame {
     private void categoryComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_categoryComboActionPerformed
+
+    private void addCategoryButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButton1ActionPerformed
+        // TODO add your handling code here:
+        ComboItem selected = (ComboItem) categoryCombo.getSelectedItem();
+        int selectedId = selected.getValue();
+        if (selectedId != 0){
+            generateInvoice(selectedId);
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Bill");
+        }
+    }//GEN-LAST:event_addCategoryButton1ActionPerformed
+
+    private void categoryComboPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_categoryComboPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoryComboPropertyChange
 
     /**
      * @param args the command line arguments
@@ -182,9 +269,14 @@ public class BillingReportGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoryButton;
+    private javax.swing.JButton addCategoryButton1;
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<ComboItem> categoryCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
