@@ -237,6 +237,10 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner1StateChanged"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jSpinner1FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="jSpinner2">
       <Properties>

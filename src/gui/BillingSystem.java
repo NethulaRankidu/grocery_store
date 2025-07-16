@@ -23,7 +23,9 @@ import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -44,6 +46,30 @@ public class BillingSystem extends javax.swing.JFrame {
         initComponents();
         loadCustomersIntoComboBox();
         setTableDefault();
+        
+        JFormattedTextField txt1 = ((JSpinner.NumberEditor) QtySpinner.getEditor()).getTextField();
+        txt1.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                try {
+                    txt1.commitEdit(); // Commit the user's typed input
+                } catch (java.text.ParseException ex) {
+                    QtySpinner.setValue(0); // Reset to 0 if invalid
+                }
+            }
+        });
+        
+        JFormattedTextField txt2 = ((JSpinner.NumberEditor) GivenMoneySpinner.getEditor()).getTextField();
+        txt2.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                try {
+                    txt2.commitEdit(); // Commit the user's typed input
+                } catch (java.text.ParseException ex) {
+                    GivenMoneySpinner.setValue(0); // Reset to 0 if invalid
+                }
+            }
+        });
     }
 
     /**

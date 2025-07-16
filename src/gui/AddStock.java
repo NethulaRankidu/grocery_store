@@ -15,7 +15,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 
 /**
@@ -30,6 +32,42 @@ public class AddStock extends javax.swing.JFrame {
     public AddStock() {
         initComponents();
         loadCategoriesIntoComboBox();
+        
+        JFormattedTextField txt1 = ((JSpinner.NumberEditor) jSpinner1.getEditor()).getTextField();
+        txt1.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                try {
+                    txt1.commitEdit(); // Commit the user's typed input
+                } catch (java.text.ParseException ex) {
+                    jSpinner1.setValue(0); // Reset to 0 if invalid
+                }
+            }
+        });
+        
+        JFormattedTextField txt2 = ((JSpinner.NumberEditor) jSpinner2.getEditor()).getTextField();
+        txt2.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                try {
+                    txt2.commitEdit(); // Commit the user's typed input
+                } catch (java.text.ParseException ex) {
+                    jSpinner2.setValue(0); // Reset to 0 if invalid
+                }
+            }
+        });
+        
+        JFormattedTextField txt3 = ((JSpinner.NumberEditor) jSpinner3.getEditor()).getTextField();
+        txt3.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                try {
+                    txt3.commitEdit(); // Commit the user's typed input
+                } catch (java.text.ParseException ex) {
+                    jSpinner3.setValue(0); // Reset to 0 if invalid
+                }
+            }
+        });
     }
 
     /**
@@ -108,6 +146,16 @@ public class AddStock extends javax.swing.JFrame {
         jDateChooser2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jSpinner1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
+        jSpinner1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jSpinner1FocusLost(evt);
+            }
+        });
 
         jSpinner2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
@@ -238,6 +286,14 @@ public class AddStock extends javax.swing.JFrame {
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+
+    }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jSpinner1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSpinner1FocusLost
+
+    }//GEN-LAST:event_jSpinner1FocusLost
 
     public void loadCategoriesIntoComboBox() {
         String sql = "SELECT product_id, product_name, product_barcode FROM products";
