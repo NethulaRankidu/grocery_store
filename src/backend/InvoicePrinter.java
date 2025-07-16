@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
+import javax.swing.WindowConstants;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 public class InvoicePrinter {
@@ -28,18 +29,20 @@ public class InvoicePrinter {
 
             JasperReport report = (JasperReport) JRLoader.loadObject(reportStream);
 
-            // 2. Set up parameters
+            // Set up parameters
             HashMap<String, Object> params = new HashMap<>();
             params.put("BILL_ID", billId);
 
-            // 3. Get connection from your existing connection manager
+            // Get connection from your existing connection manager
             Connection conn = ConnectionManager.getConnection();
 
-            // 4. Fill report
+            // ill report
             JasperPrint filledReport = JasperFillManager.fillReport(report, params, conn);
 
-            // 5. Show or Export
-            JasperViewer.viewReport(filledReport, true); // Show preview
+            // Show
+            JasperViewer viewer = new JasperViewer(filledReport, false); // false prevents default exit
+            viewer.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // <== THIS LINE
+            viewer.setVisible(true);
 
             // OR export to PDF
             // JasperExportManager.exportReportToPdfFile(filledReport, "invoice_" + billId + ".pdf");
