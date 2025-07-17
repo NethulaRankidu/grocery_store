@@ -5,8 +5,10 @@
 package gui;
 
 import backend.ComboItem;
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import backend.ConnectionManager;
+import backend.Session;
+import backend.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -37,6 +39,7 @@ public class DashBoard extends javax.swing.JFrame {
             }
         }
     });
+        Title1.setText("Welcome, " + Session.fullName);
     }
 
     /**
@@ -48,7 +51,7 @@ public class DashBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Title = new javax.swing.JLabel();
+        Title1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         salesPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -79,9 +82,9 @@ public class DashBoard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Title.setFont(new java.awt.Font("Segoe UI Semibold", 0, 36)); // NOI18N
-        Title.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Title.setText("Dashboard");
+        Title1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 36)); // NOI18N
+        Title1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Title1.setText("Welcome");
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -312,14 +315,14 @@ public class DashBoard extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Title)
+                .addComponent(Title1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(durationCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -639,7 +642,7 @@ public class DashBoard extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatDarkLaf.setup();
+        FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -650,7 +653,7 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Title;
+    private javax.swing.JLabel Title1;
     private javax.swing.JButton addCategory;
     private javax.swing.JButton addCustomer;
     private javax.swing.JButton addProducts;
