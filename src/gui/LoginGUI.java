@@ -110,6 +110,7 @@ public class LoginGUI extends javax.swing.JFrame {
     if (loggedInUser != null) {
         Session.userId = loggedInUser.id;
         Session.username = loggedInUser.username;
+        Session.fullName = loggedInUser.fullName;
 
         DashBoard dashboard = new DashBoard();
         dashboard.setVisible(true);
