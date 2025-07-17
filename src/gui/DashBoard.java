@@ -67,7 +67,6 @@ public class DashBoard extends javax.swing.JFrame {
         addCategory = new javax.swing.JButton();
         addCustomer = new javax.swing.JButton();
         addStock = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         updateProducts = new javax.swing.JButton();
@@ -90,7 +89,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel1.setText("Items Sold");
 
         salesNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        salesNum.setText("null");
+        salesNum.setText("Rs. -.--");
 
         javax.swing.GroupLayout salesPanelLayout = new javax.swing.GroupLayout(salesPanel);
         salesPanel.setLayout(salesPanelLayout);
@@ -119,7 +118,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel7.setText("Revenue (Rs.)");
 
         transactionNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        transactionNum.setText("null");
+        transactionNum.setText("Rs. -.--");
 
         javax.swing.GroupLayout salesPanel1Layout = new javax.swing.GroupLayout(salesPanel1);
         salesPanel1.setLayout(salesPanel1Layout);
@@ -148,7 +147,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel9.setText("Profit (Rs.)");
 
         profitNum.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        profitNum.setText("null");
+        profitNum.setText("Rs. -.--");
 
         javax.swing.GroupLayout salesPanel2Layout = new javax.swing.GroupLayout(salesPanel2);
         salesPanel2.setLayout(salesPanel2Layout);
@@ -192,7 +191,7 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.add(billing);
 
         addProducts.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addProducts.setText("+ Add Products");
+        addProducts.setText("Add Products");
         addProducts.setActionCommand("");
         addProducts.setPreferredSize(new java.awt.Dimension(75, 30));
         addProducts.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +202,7 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.add(addProducts);
 
         addCategory.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addCategory.setText("+ Add Category");
+        addCategory.setText("Add Category");
         addCategory.setPreferredSize(new java.awt.Dimension(75, 30));
         addCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +212,7 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.add(addCategory);
 
         addCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addCustomer.setText("+ Add Customer");
+        addCustomer.setText("Add Customer");
         addCustomer.setPreferredSize(new java.awt.Dimension(75, 30));
         addCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,7 +222,7 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.add(addCustomer);
 
         addStock.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addStock.setText("+ Add Stock");
+        addStock.setText("Add Stock");
         addStock.setActionCommand("");
         addStock.setPreferredSize(new java.awt.Dimension(75, 30));
         addStock.addActionListener(new java.awt.event.ActionListener() {
@@ -232,15 +231,6 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
         jPanel2.add(addStock);
-
-        jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        jButton5.setText("❌ Quit");
-        jButton5.setActionCommand("");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel6.setText("Updating");
@@ -313,10 +303,6 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,16 +311,15 @@ public class DashBoard extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Title)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(durationCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,11 +351,6 @@ public class DashBoard extends javax.swing.JFrame {
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_addProductsActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        this.dispose(); // closes the frame that this button is part of
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void billingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingActionPerformed
         // TODO add your handling code here:
@@ -679,7 +659,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton billsReport;
     private javax.swing.JButton boughtByCustomerReport;
     private javax.swing.JComboBox<String> durationCombo;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
