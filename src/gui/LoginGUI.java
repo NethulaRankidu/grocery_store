@@ -6,9 +6,11 @@ package gui;
 
 
 import backend.Auth;
+import backend.LogProcess;
 import backend.Session;
 import backend.User;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +24,8 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public LoginGUI() {
         initComponents();
+        new LogProcess();
+        LogProcess.logger.info("Login GUI Started Successfully! \n");
     }
 
     /**
@@ -111,19 +115,25 @@ public class LoginGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = userNameField.getText();
         char[] password = passwordField.getPassword();
+        LogProcess.logger.info("Got the data from inputs successfully \n");
         User loggedInUser = Auth.login(username, new String(password));
+        LogProcess.logger.info("Checking for existing login.. \n");
 
     if (loggedInUser != null) {
         Session.userId = loggedInUser.id;
         Session.username = loggedInUser.username;
         Session.fullName = loggedInUser.fullName;
+        LogProcess.logger.log(Level.INFO, "Logged In! \nCurrent User''s Details: \n ID: {0}\n Full Name: {1} \n", new Object[]{Session.userId, Session.fullName});
 
+        LogProcess.logger.info("Loading Dashboard.. \n");
         DashBoard dashboard = new DashBoard();
         dashboard.setVisible(true);
         
+        LogProcess.logger.info("Disposing Current Window.. \n");
         this.dispose();
     } else {
-        JOptionPane.showMessageDialog(this, "Invalid credentials!");
+        JOptionPane.showMessageDialog(this, "Invalid credentials! \n");
+        LogProcess.logger.warning("Given credentials are incorrect! \n");
     }
     }//GEN-LAST:event_loginButtonActionPerformed
 
