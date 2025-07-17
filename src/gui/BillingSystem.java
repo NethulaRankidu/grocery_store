@@ -143,6 +143,7 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel3.setText("Qty");
 
         QtyUpdateDetails.setText("Update Details");
+        QtyUpdateDetails.setToolTipText("Click to update details after selecting stock");
         QtyUpdateDetails.setPreferredSize(new java.awt.Dimension(75, 25));
         QtyUpdateDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +152,7 @@ public class BillingSystem extends javax.swing.JFrame {
         });
 
         StockUpdateDetails.setText("Update Details");
+        StockUpdateDetails.setToolTipText("Update the details after typing the barcode");
         StockUpdateDetails.setPreferredSize(new java.awt.Dimension(75, 25));
         StockUpdateDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +163,7 @@ public class BillingSystem extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Stock");
 
+        StockComboBox.setToolTipText("Select the stock from here");
         StockComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StockComboBoxActionPerformed(evt);
@@ -170,7 +173,7 @@ public class BillingSystem extends javax.swing.JFrame {
         CurrentTotalLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CurrentTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         CurrentTotalLabel.setText("Current Total: Rs. 0.00");
-        CurrentTotalLabel.setToolTipText("");
+        CurrentTotalLabel.setToolTipText("Current Total Label");
 
         ProductNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ProductNameLabel.setText("Product Name:");
@@ -185,6 +188,7 @@ public class BillingSystem extends javax.swing.JFrame {
         UnitPriceLabel.setText("Unit Price:");
 
         AddEntryButton.setText("Add Entry");
+        AddEntryButton.setToolTipText("Click to add entry of the given item");
         AddEntryButton.setPreferredSize(new java.awt.Dimension(75, 25));
         AddEntryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,10 +199,13 @@ public class BillingSystem extends javax.swing.JFrame {
         barcodeLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         barcodeLabel1.setText("Customer ");
 
+        CustomerComboBox.setToolTipText("Select a customer from the combo box");
+
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Given Money:");
 
         jButton6.setText("Print");
+        jButton6.setToolTipText("adds the data to the database and shows the bill");
         jButton6.setPreferredSize(new java.awt.Dimension(75, 25));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,9 +216,10 @@ public class BillingSystem extends javax.swing.JFrame {
         ChangeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ChangeLabel.setText("Change: Rs. 0.00");
-        ChangeLabel.setToolTipText("");
+        ChangeLabel.setToolTipText("Change Label");
 
         CalculateButton.setText("Calculate");
+        CalculateButton.setToolTipText("Used to calculate after inputting the money");
         CalculateButton.setPreferredSize(new java.awt.Dimension(75, 25));
         CalculateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,9 +227,11 @@ public class BillingSystem extends javax.swing.JFrame {
             }
         });
 
+        QtySpinner.setToolTipText("Select the number you want to buy");
         QtySpinner.setPreferredSize(new java.awt.Dimension(64, 26));
 
         GivenMoneySpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+        GivenMoneySpinner.setToolTipText("The money given by the customer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -321,9 +331,7 @@ public class BillingSystem extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel11)
                                 .addGap(31, 31, 31))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(370, 370, 370)
-                                .addComponent(GivenMoneySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(GivenMoneySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))

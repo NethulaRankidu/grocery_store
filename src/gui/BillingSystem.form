@@ -251,6 +251,7 @@
     <Component class="javax.swing.JButton" name="QtyUpdateDetails">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update Details"/>
+        <Property name="toolTipText" type="java.lang.String" value="Click to update details after selecting stock"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[75, 25]"/>
         </Property>
@@ -262,6 +263,7 @@
     <Component class="javax.swing.JButton" name="StockUpdateDetails">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update Details"/>
+        <Property name="toolTipText" type="java.lang.String" value="Update the details after typing the barcode"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[75, 25]"/>
         </Property>
@@ -283,6 +285,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Select the stock from here"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StockComboBoxActionPerformed"/>
@@ -298,7 +301,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Current Total: Rs. 0.00"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Current Total Label"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ProductNameLabel">
@@ -336,6 +339,7 @@
     <Component class="javax.swing.JButton" name="AddEntryButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Entry"/>
+        <Property name="toolTipText" type="java.lang.String" value="Click to add entry of the given item"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[75, 25]"/>
         </Property>
@@ -357,6 +361,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Select a customer from the combo box"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboItem&gt;"/>
@@ -373,6 +378,7 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Print"/>
+        <Property name="toolTipText" type="java.lang.String" value="adds the data to the database and shows the bill"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[75, 25]"/>
         </Property>
@@ -388,12 +394,13 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Change: Rs. 0.00"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Change Label"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="CalculateButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calculate"/>
+        <Property name="toolTipText" type="java.lang.String" value="Used to calculate after inputting the money"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[75, 25]"/>
         </Property>
@@ -404,6 +411,7 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="QtySpinner">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Select the number you want to buy"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[64, 26]"/>
         </Property>
@@ -414,6 +422,7 @@
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
           <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="The money given by the customer"/>
       </Properties>
     </Component>
   </SubComponents>

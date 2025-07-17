@@ -72,7 +72,7 @@ public class BillingReportGUI extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         addCategoryButton.setText("Check Bill");
-        addCategoryButton.setToolTipText("");
+        addCategoryButton.setToolTipText("Click to show bill data on the table");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,12 +84,14 @@ public class BillingReportGUI extends javax.swing.JFrame {
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         backButton.setText("← Back ");
+        backButton.setToolTipText("Go back to dashboard");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
+        categoryCombo.setToolTipText("Select the bill");
         categoryCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoryComboActionPerformed(evt);
@@ -115,7 +117,7 @@ public class BillingReportGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         addCategoryButton1.setText("Print Bill");
-        addCategoryButton1.setToolTipText("");
+        addCategoryButton1.setToolTipText("Click to show and get option to print the bill");
         addCategoryButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

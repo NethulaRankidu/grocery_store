@@ -107,7 +107,7 @@ public class AddStock extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Add Stock");
-        jButton1.setToolTipText("");
+        jButton1.setToolTipText("Submit stock details to the database");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +123,7 @@ public class AddStock extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
+        jButton2.setToolTipText("Click to go back to dashboard");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -139,13 +140,17 @@ public class AddStock extends javax.swing.JFrame {
         jLabel9.setText("Product Cost");
 
         productNameCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        productNameCombo.setToolTipText("Select your product name in this combo box");
 
         jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
+        jDateChooser1.setToolTipText("Enter your stock received date in this date input box");
         jDateChooser1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jDateChooser2.setToolTipText("Enter your stock's expiry date in this date input box");
         jDateChooser2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jSpinner1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jSpinner1.setToolTipText("Enter your quantity of items in this number input box");
         jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinner1StateChanged(evt);
@@ -159,9 +164,11 @@ public class AddStock extends javax.swing.JFrame {
 
         jSpinner2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+        jSpinner2.setToolTipText("Enter your item's product cost in this number input box");
 
         jSpinner3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+        jSpinner3.setToolTipText("Enter your item's product price in this number input box");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

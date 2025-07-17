@@ -88,6 +88,8 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
+        salesPanel.setToolTipText("Shows the number of items sold");
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Items Sold");
 
@@ -117,6 +119,8 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel1.add(salesPanel);
 
+        salesPanel1.setToolTipText("Shows the revenue of the selected timeframe");
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setText("Revenue (Rs.)");
 
@@ -145,6 +149,8 @@ public class DashBoard extends javax.swing.JFrame {
         );
 
         jPanel1.add(salesPanel1);
+
+        salesPanel2.setToolTipText("Shows the profit of the selected timeframe");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setText("Profit (Rs.)");
@@ -177,6 +183,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         durationCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         durationCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Today", "This Week", "This Month", "This Year", "Lifetime" }));
+        durationCombo.setToolTipText("Select the needed timeframe using this");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("Adding");
@@ -185,6 +192,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         billing.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         billing.setText("Billing");
+        billing.setToolTipText("Go to the billing system section");
         billing.setPreferredSize(new java.awt.Dimension(75, 30));
         billing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +203,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         addProducts.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         addProducts.setText("Add Products");
+        addProducts.setToolTipText("Go to the add products section");
         addProducts.setActionCommand("");
         addProducts.setPreferredSize(new java.awt.Dimension(75, 30));
         addProducts.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +215,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         addCategory.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         addCategory.setText("Add Category");
+        addCategory.setToolTipText("Go to the add category section");
         addCategory.setPreferredSize(new java.awt.Dimension(75, 30));
         addCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +226,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         addCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         addCustomer.setText("Add Customer");
+        addCustomer.setToolTipText("Go to the add customer section");
         addCustomer.setPreferredSize(new java.awt.Dimension(75, 30));
         addCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +237,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         addStock.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         addStock.setText("Add Stock");
+        addStock.setToolTipText("Go to the add stock section");
         addStock.setActionCommand("");
         addStock.setPreferredSize(new java.awt.Dimension(75, 30));
         addStock.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +254,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         updateProducts.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         updateProducts.setText("Update Products");
+        updateProducts.setToolTipText("Go to the update products section");
         updateProducts.setActionCommand("");
         updateProducts.setPreferredSize(new java.awt.Dimension(75, 30));
         updateProducts.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +266,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         updateCategory.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         updateCategory.setText("Update Category");
+        updateCategory.setToolTipText("Go to the update category section");
         updateCategory.setPreferredSize(new java.awt.Dimension(75, 30));
         updateCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +277,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         updateCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         updateCustomer.setText("Update Customer");
+        updateCustomer.setToolTipText("Go to the update customer section");
         updateCustomer.setPreferredSize(new java.awt.Dimension(75, 30));
         updateCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +293,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         billsReport.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         billsReport.setText("Bills");
+        billsReport.setToolTipText("Go to the bill reports section");
         billsReport.setActionCommand("");
         billsReport.setPreferredSize(new java.awt.Dimension(75, 30));
         billsReport.addActionListener(new java.awt.event.ActionListener() {
@@ -289,6 +305,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         boughtByCustomerReport.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         boughtByCustomerReport.setText("All Bought by a customer");
+        boughtByCustomerReport.setToolTipText("Go to the all items that is bought by a customer section");
         boughtByCustomerReport.setPreferredSize(new java.awt.Dimension(75, 30));
         boughtByCustomerReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

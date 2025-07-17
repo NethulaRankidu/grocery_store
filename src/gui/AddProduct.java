@@ -57,7 +57,7 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         ProductNameBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ProductNameBar.setToolTipText("Enter your username in this input box");
+        ProductNameBar.setToolTipText("Enter your product name in this input box");
         ProductNameBar.setPreferredSize(new java.awt.Dimension(71, 25));
         ProductNameBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +70,7 @@ public class AddProduct extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Add Product");
-        jButton1.setToolTipText("");
+        jButton1.setToolTipText("Click to submit product details to the database");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class AddProduct extends javax.swing.JFrame {
         });
 
         BarcodeBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BarcodeBar.setToolTipText("Enter your username in this input box");
+        BarcodeBar.setToolTipText("Enter your barcode in this input box");
         BarcodeBar.setPreferredSize(new java.awt.Dimension(71, 25));
         BarcodeBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,9 +94,11 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel6.setText("Category");
 
         CategoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CategoryCombo.setToolTipText("Select your category in this combo box");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
+        jButton2.setToolTipText("Click to go back to dashboard");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

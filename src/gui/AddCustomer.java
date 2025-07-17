@@ -62,7 +62,7 @@ public class AddCustomer extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         customerNameBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        customerNameBar.setToolTipText("Enter your username in this input box");
+        customerNameBar.setToolTipText("Enter the customer's name");
         customerNameBar.setPreferredSize(new java.awt.Dimension(71, 25));
         customerNameBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +75,7 @@ public class AddCustomer extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Add Customer");
-        jButton1.setToolTipText("");
+        jButton1.setToolTipText("Submits given data to the database");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class AddCustomer extends javax.swing.JFrame {
         });
 
         phoneNumberBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        phoneNumberBar.setToolTipText("Enter your username in this input box");
+        phoneNumberBar.setToolTipText("Enter the customer's phone number");
         phoneNumberBar.setPreferredSize(new java.awt.Dimension(71, 25));
         phoneNumberBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +100,7 @@ public class AddCustomer extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
+        jButton2.setToolTipText("Click to go back to the dashboard");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -116,6 +117,7 @@ public class AddCustomer extends javax.swing.JFrame {
         jLabel8.setText("If you don't want to add users, consider using guest user in billing section.");
 
         genderCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        genderCombo.setToolTipText("Select the customer's gender");
         genderCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 genderComboActionPerformed(evt);
@@ -126,7 +128,7 @@ public class AddCustomer extends javax.swing.JFrame {
         jLabel9.setText("Gender*");
 
         birthYearBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        birthYearBar.setToolTipText("Enter your username in this input box");
+        birthYearBar.setToolTipText("Enter the customer's birth year");
         birthYearBar.setPreferredSize(new java.awt.Dimension(71, 25));
         birthYearBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +137,7 @@ public class AddCustomer extends javax.swing.JFrame {
         });
 
         emailBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailBar.setToolTipText("Enter your username in this input box");
+        emailBar.setToolTipText("Enter the customer's email");
         emailBar.setPreferredSize(new java.awt.Dimension(71, 25));
         emailBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -44,7 +44,7 @@ public class AddCategory extends javax.swing.JFrame {
 
         addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         addCategoryButton.setText("Add Category");
-        addCategoryButton.setToolTipText("");
+        addCategoryButton.setToolTipText("Click to add the category");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,7 +53,7 @@ public class AddCategory extends javax.swing.JFrame {
         });
 
         categoryNameBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        categoryNameBar.setToolTipText("Enter your username in this input box");
+        categoryNameBar.setToolTipText("Enter the category name in the textbox");
         categoryNameBar.setPreferredSize(new java.awt.Dimension(71, 25));
         categoryNameBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +66,7 @@ public class AddCategory extends javax.swing.JFrame {
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         backButton.setText("← Back ");
+        backButton.setToolTipText("Click to go back to the dashboard");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
