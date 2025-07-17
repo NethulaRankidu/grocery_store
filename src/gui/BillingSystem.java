@@ -9,6 +9,7 @@ import backend.ConnectionManager;
 import static backend.InvoicePrinter.generateInvoice;
 import backend.ProductDAO;
 import backend.ProductDAO.StockBatchDetails;
+import backend.Session;
 import backend.StockBatchItem;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
@@ -465,7 +466,7 @@ public class BillingSystem extends javax.swing.JFrame {
             return;
         }
        
-        saveBillToDatabase(1, customer.getValue());
+        saveBillToDatabase(Session.userId, customer.getValue());
         
         setAllValuesAsDefault();
     }//GEN-LAST:event_jButton6ActionPerformed
