@@ -11,7 +11,7 @@ import backend.ProductDAO;
 import backend.ProductDAO.StockBatchDetails;
 import backend.Session;
 import backend.StockBatchItem;
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -751,7 +751,7 @@ public class BillingSystem extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatDarkLaf.setup();
+        FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
