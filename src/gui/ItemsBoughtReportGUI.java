@@ -7,12 +7,15 @@ package gui;
 import com.formdev.flatlaf.FlatDarkLaf;
 import backend.ComboItem;
 import backend.ConnectionManager;
+import backend.TableUtils;
 import static backend.allBoughtItemsViewer.generateBoughtItems;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,6 +45,9 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         customerCombo = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        addCategoryButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,8 +56,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         jLabel1.setText("View all items bought by a customer");
         jLabel1.setToolTipText("");
 
-        addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addCategoryButton.setText("Check Report");
+        addCategoryButton.setText("Print");
         addCategoryButton.setToolTipText("");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -60,7 +65,6 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Customer ID");
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -71,10 +75,31 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
             }
         });
 
-        customerCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         customerCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerComboActionPerformed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        addCategoryButton2.setText("Check Report");
+        addCategoryButton2.setToolTipText("");
+        addCategoryButton2.setPreferredSize(new java.awt.Dimension(75, 20));
+        addCategoryButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCategoryButton2ActionPerformed(evt);
             }
         });
 
@@ -91,12 +116,18 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(customerCombo, 0, 647, Short.MAX_VALUE))
-                            .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(customerCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addCategoryButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,13 +136,16 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(64, 64, 64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCategoryButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -141,6 +175,31 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
     private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_customerComboActionPerformed
+
+    private void addCategoryButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButton2ActionPerformed
+        // TODO add your handling code here:
+        ComboItem selected = (ComboItem) customerCombo.getSelectedItem();
+        int selectedId = selected.getValue();
+        if (selectedId != 0){
+            try (Connection conn = ConnectionManager.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT b.datetime AS purchase_date,  p.product_name, si.unit_price, si.quantity, (si.unit_price * si.quantity) FROM customer c JOIN bill b ON c.customer_id = b.customer_id JOIN sold_items si ON b.bill_id = si.bill_id JOIN products p ON si.product_id = p.product_id WHERE c.customer_id = " + selectedId + " ORDER BY b.datetime ASC")) {
+
+                DefaultTableModel model = TableUtils.buildTableModel(rs);
+                model.setColumnIdentifiers(new Object[] {
+                    "Datetime", "Product Name", "Unit Price", "Quantity", "Amount"
+                });
+
+                jTable2.setModel(model); // your JTable instance
+
+            } catch (SQLException e) {
+                e.printStackTrace(); // Or show in a dialog
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Bill");
+            return;
+        }
+    }//GEN-LAST:event_addCategoryButton2ActionPerformed
 
     public void loadCustomersIntoComboBox() {
         String sql = "SELECT customer_id, name, birth_year FROM customer";
@@ -182,9 +241,12 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoryButton;
+    private javax.swing.JButton addCategoryButton2;
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<ComboItem> customerCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
