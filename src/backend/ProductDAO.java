@@ -47,7 +47,7 @@ public class ProductDAO {
         }
 
         String checkSql = "SELECT COUNT(*) FROM category WHERE category_name = ?";
-        String insertSql = "INSERT INTO category(category_name) VALUES (?)";
+        String insertSql = "INSERT INTO category(category_name, added_by) VALUES (?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection()) {
 
@@ -68,6 +68,7 @@ public class ProductDAO {
             // Step 2: Insert the new category
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                 insertStmt.setString(1, cat_name.trim());
+                insertStmt.setInt(2, Session.userId);
                 int rows = insertStmt.executeUpdate();
 
                 if (rows > 0) {
@@ -106,7 +107,7 @@ public class ProductDAO {
         }
 
         String checkSql = "SELECT COUNT(*) FROM products WHERE product_barcode = ?";
-        String insertSql = "INSERT INTO products(product_name, product_barcode, category_id) VALUES (?, ?, ?)";
+        String insertSql = "INSERT INTO products(product_name, product_barcode, category_id, added_by) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection()) {
 
@@ -128,7 +129,8 @@ public class ProductDAO {
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                 insertStmt.setString(1, productName.trim());
                 insertStmt.setString(2, barcode.trim());
-                insertStmt.setString(3, category + "");
+                insertStmt.setInt(3, category);
+                insertStmt.setInt(4, Session.userId);
 
                 int rows = insertStmt.executeUpdate();
 
@@ -168,7 +170,7 @@ public class ProductDAO {
             return;
         }
 
-        String insertSql = "INSERT INTO customer(name, phone, email, birth_year, gender_gender_id) VALUES (?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO customer(name, phone, email, birth_year, gender_gender_id, added_by) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection()) {
             // Step 2: Insert the new category
@@ -177,7 +179,8 @@ public class ProductDAO {
                 insertStmt.setString(2, phoneNumber.trim());
                 insertStmt.setString(3, email.trim());
                 insertStmt.setInt(4, Integer.parseInt(birthYear));
-                insertStmt.setString(5, gender + "");
+                insertStmt.setInt(5, gender);
+                insertStmt.setInt(6, Session.userId);
 
                 int rows = insertStmt.executeUpdate();
 
@@ -187,12 +190,12 @@ public class ProductDAO {
                         int catId = keys.getInt(1);
                         System.out.println("Customer Successfully Added");
                         JOptionPane.showMessageDialog(null, "Customer Successfully Added!\nID: " + catId + "\nName: " + cusName.trim(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                        System.out.println("Product ID: " + catId);
-                        System.out.println("Product Name: " + cusName.trim());
+                        System.out.println("Customer ID: " + catId);
+                        System.out.println("Customer Name: " + cusName.trim());
                     }
                 } else {
-                    System.out.println("No product was added. Something went wrong.");
-                    JOptionPane.showMessageDialog(null, "No product was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
+                    System.out.println("No customer was added. Something went wrong.");
+                    JOptionPane.showMessageDialog(null, "No customer was added. Something went wrong.", "Insert Failed", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
@@ -228,21 +231,22 @@ public class ProductDAO {
             return;
         }
 
-        String insertSql = "INSERT INTO product_batches(product_id, units, expiry_date, received_date, product_cost, product_price, remaining_items, bought_items) " + 
-                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO product_batches(product_id, units, expiry_date, received_date, product_cost, product_price, remaining_items, bought_items, added_by) " + 
+                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = ConnectionManager.getConnection()) {
 
             // Step 2: Insert the new category
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
-                insertStmt.setString(1, productId + "");
-                insertStmt.setString(2, units + "");
+                insertStmt.setInt(1, productId);
+                insertStmt.setInt(2, units);
                 insertStmt.setString(3, expireDate);
                 insertStmt.setString(4, receivedDate);
-                insertStmt.setString(5, productCost + "");
-                insertStmt.setString(6, productPrice + "");
-                insertStmt.setString(7, units + "");
-                insertStmt.setString(8, "0");
+                insertStmt.setDouble(5, productCost);
+                insertStmt.setDouble(6, productPrice);
+                insertStmt.setInt(7, units);
+                insertStmt.setInt(8, 0);
+                insertStmt.setInt(9, Session.userId);
 
                 int rows = insertStmt.executeUpdate();
 
