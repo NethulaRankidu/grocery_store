@@ -53,7 +53,7 @@ public class UpdateCategory extends javax.swing.JFrame {
 
         addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         addCategoryButton.setText("Update Category");
-        addCategoryButton.setToolTipText("");
+        addCategoryButton.setToolTipText("click to update the category");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +62,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         });
 
         categoryNameBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        categoryNameBar.setToolTipText("Enter your username in this input box");
+        categoryNameBar.setToolTipText("Enter category name in this input box");
         categoryNameBar.setPreferredSize(new java.awt.Dimension(71, 25));
         categoryNameBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +75,7 @@ public class UpdateCategory extends javax.swing.JFrame {
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         backButton.setText("← Back ");
+        backButton.setToolTipText("Click to go back to dashboard");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -85,6 +86,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         jLabel6.setText("Select Category");
 
         categoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        categoryCombo.setToolTipText("Select the category");
         categoryCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoryComboActionPerformed(evt);
