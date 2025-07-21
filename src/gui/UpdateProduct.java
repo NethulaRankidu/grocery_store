@@ -58,7 +58,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         ProductNameBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ProductNameBar.setToolTipText("Enter your username in this input box");
+        ProductNameBar.setToolTipText("Enter the product name");
         ProductNameBar.setPreferredSize(new java.awt.Dimension(71, 25));
         ProductNameBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +71,7 @@ public class UpdateProduct extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Update Product");
-        jButton1.setToolTipText("");
+        jButton1.setToolTipText("Click to update the product");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 20));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +80,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         });
 
         BarcodeBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BarcodeBar.setToolTipText("Enter your username in this input box");
+        BarcodeBar.setToolTipText("Enter the barcode ");
         BarcodeBar.setPreferredSize(new java.awt.Dimension(71, 25));
         BarcodeBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +95,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel6.setText("Category");
 
         CategoryCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CategoryCombo.setToolTipText("Enter the category");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("← Back ");
@@ -109,6 +110,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel10.setText("Select Product");
 
         productCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        productCombo.setToolTipText("Select the product from the dropdown");
         productCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productComboActionPerformed(evt);
