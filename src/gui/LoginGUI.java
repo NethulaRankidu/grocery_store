@@ -50,6 +50,8 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login");
 
+        userNameField.setToolTipText("Type your username here");
+
         jLabel2.setText("Username");
 
         jLabel3.setText("Password");
@@ -61,6 +63,7 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
 
+        passwordField.setToolTipText("Type your password here");
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);

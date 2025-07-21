@@ -80,6 +80,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="userNameField">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Type your username here"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -100,6 +103,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="passwordField">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Type your password here"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordFieldActionPerformed"/>
       </Events>

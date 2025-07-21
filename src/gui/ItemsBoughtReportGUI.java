@@ -57,7 +57,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         addCategoryButton.setText("Print");
-        addCategoryButton.setToolTipText("");
+        addCategoryButton.setToolTipText("Print the data in table");
         addCategoryButton.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,16 +65,18 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Customer ID");
+        jLabel5.setText("Customer");
 
         backButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         backButton.setText("← Back ");
+        backButton.setToolTipText("Click to go to dashboard");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
+        customerCombo.setToolTipText("Select the customer");
         customerCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerComboActionPerformed(evt);
@@ -92,10 +94,11 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
 
             }
         ));
+        jTable2.setToolTipText("The table that shows the data");
         jScrollPane2.setViewportView(jTable2);
 
         addCategoryButton2.setText("Check Report");
-        addCategoryButton2.setToolTipText("");
+        addCategoryButton2.setToolTipText("Fill the table with report data");
         addCategoryButton2.setPreferredSize(new java.awt.Dimension(75, 20));
         addCategoryButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
