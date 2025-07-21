@@ -5,10 +5,10 @@
 package gui;
 
 import backend.ComboItem;
-import com.formdev.flatlaf.FlatLightLaf;
 import backend.ConnectionManager;
 import backend.Session;
 import backend.User;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -659,7 +659,7 @@ public class DashBoard extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        FlatMacLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

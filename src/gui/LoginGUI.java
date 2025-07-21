@@ -9,7 +9,7 @@ import backend.Auth;
 import backend.LogProcess;
 import backend.Session;
 import backend.User;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
@@ -148,7 +148,7 @@ public class LoginGUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        FlatMacLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

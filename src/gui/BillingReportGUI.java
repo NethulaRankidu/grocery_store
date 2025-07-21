@@ -4,7 +4,6 @@
  */
 package gui;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import backend.ComboItem;
 import backend.ConnectionManager;
 import static backend.InvoicePrinter.generateInvoice;
@@ -14,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.TableUtils;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
@@ -259,7 +259,7 @@ public class BillingReportGUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        FlatMacLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
