@@ -6,6 +6,7 @@ package gui;
 
 import backend.ComboItem;
 import backend.ConnectionManager;
+import backend.LogProcess;
 import backend.Session;
 import backend.User;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,17 +31,20 @@ public class DashBoard extends javax.swing.JFrame {
     public DashBoard() {
         initComponents();
         showSoldItemsCount("Today");
+        LogProcess.logger.info("Showing Sold Items count for Today \n");
         durationCombo.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             String selected = (String) durationCombo.getSelectedItem();
             if (selected != null) {
                 System.out.println("You selected: " + selected);
+                LogProcess.logger.log(Level.INFO, "You selected: {0}\n", selected);
                 showSoldItemsCount(selected);
             }
         }
     });
         Title1.setText("Welcome, " + Session.fullName);
+        LogProcess.logger.log(Level.INFO, "Loaded dashboard for: {0}\n", Session.fullName);
     }
 
     /**
@@ -366,25 +371,33 @@ public class DashBoard extends javax.swing.JFrame {
     private void addProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductsActionPerformed
         // TODO add your handling code here:
         AddProduct product = new AddProduct();
+        LogProcess.logger.log(Level.INFO, "Loaded Add Product Screen\n");
         product.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Add Product screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_addProductsActionPerformed
 
     private void billingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingActionPerformed
         // TODO add your handling code here:
         BillingSystem billing = new BillingSystem();
+        LogProcess.logger.log(Level.INFO, "Loaded Billing System Screen\n");
         billing.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Billing System screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_billingActionPerformed
 
     private void addCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryActionPerformed
         // TODO add your handling code here:
         AddCategory category = new AddCategory();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Add Category Screen\n");
         category.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Category screen visible \n");
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
@@ -393,104 +406,128 @@ public class DashBoard extends javax.swing.JFrame {
     private void addCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerActionPerformed
         // TODO add your handling code here:
         AddCustomer category = new AddCustomer();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Add Category Screen\n");
         category.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Category screen visible \n");
         
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_addCustomerActionPerformed
 
     private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         // TODO add your handling code here:
         AddStock stock = new AddStock();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Add Stock Screen\n");
         stock.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Stock Screen visible \n");
         
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_addStockActionPerformed
 
     private void updateProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProductsActionPerformed
         // TODO add your handling code here:
         UpdateProduct updateProduct = new UpdateProduct();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Update Product Screen\n");
         updateProduct.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Update Product Screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_updateProductsActionPerformed
 
     private void updateCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCategoryActionPerformed
         // TODO add your handling code here:
         UpdateCategory updateCategory = new UpdateCategory();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Update Category Screen\n");
         updateCategory.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Update Category Screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_updateCategoryActionPerformed
 
     private void updateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustomerActionPerformed
         // TODO add your handling code here:
         UpdateCustomer updateCustomer = new UpdateCustomer();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Update Customer Screen\n");
         updateCustomer.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Update Customer Screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_updateCustomerActionPerformed
 
     private void billsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billsReportActionPerformed
         // TODO add your handling code here:
         BillingReportGUI billingReport = new BillingReportGUI();  // or any other JFrame
+        LogProcess.logger.log(Level.INFO, "Loaded Billing Report Screen\n");
         billingReport.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Billing Report Screen visible \n");
 
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_billsReportActionPerformed
 
     private void boughtByCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boughtByCustomerReportActionPerformed
         // TODO add your handling code here:
         ItemsBoughtReportGUI bought = new ItemsBoughtReportGUI();
+        LogProcess.logger.log(Level.INFO, "Loaded Items Bought Report Screen\n");
         bought.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Made Items Bought Report Screen visible \n");
         
         // Close the current frame
+        LogProcess.logger.log(Level.INFO, "Closing Dashboard... \n");
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_boughtByCustomerReportActionPerformed
     
     public int getCountForPeriod(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+                LogProcess.logger.log(Level.INFO, "Excecuting Query.. \n");
             if (rs.next()) {
                 return rs.getInt("total");
-                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            LogProcess.logger.log(Level.SEVERE, "SQL Exception Occured", e);
         }
         return 0;
     }
     
     public double getRevenue(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+                LogProcess.logger.log(Level.INFO, "Excecuting Query.. \n");
             if (rs.next()) {
                 return rs.getDouble("total_revenue");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            LogProcess.logger.log(Level.SEVERE, "SQL Exception Occured", e);
         }
         return 0.0;
     }
     
     public double getProfit(String sql) {
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+                LogProcess.logger.log(Level.INFO, "Excecuting Query.. \n");
             if (rs.next()) {
                 return rs.getDouble("total_profit");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            LogProcess.logger.log(Level.SEVERE, "SQL Exception Occured", e);
         }
         return 0.0;
     }
@@ -501,11 +538,13 @@ public class DashBoard extends javax.swing.JFrame {
             salesNum.setText("");
             transactionNum.setText("");
             profitNum.setText("");
+            LogProcess.logger.log(Level.INFO, "Emptying the numbers before adding new ones \n");
             
             // Sold Items
             int todaySalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE DATE(b.datetime) = CURDATE()");
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             salesNum.setText(todaySalesCount + "");
-            System.out.println("Sales today: " + todaySalesCount);
+            LogProcess.logger.log(Level.INFO, "Setting the data inside the label \n");
             
             // Revenue
             double todayRevenue = getRevenue(
@@ -514,8 +553,11 @@ public class DashBoard extends javax.swing.JFrame {
                 "JOIN bill b ON si.bill_id = b.bill_id " +
                 "WHERE DATE(b.datetime) = CURDATE()"
             );
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             String formatted = String.format("Rs. %.2f", todayRevenue);
+            LogProcess.logger.log(Level.INFO, "Formatting it to have two decimals and Rs. \n");
             transactionNum.setText(formatted);
+            LogProcess.logger.log(Level.INFO, "Setting number as the text \n");
             
             // Profit
             double todayProfit = getProfit(
@@ -525,18 +567,23 @@ public class DashBoard extends javax.swing.JFrame {
                 "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
                 "WHERE DATE(b.datetime) = CURDATE();"
             );
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             profitNum.setText(String.format("Rs. %.2f", todayProfit));
+            LogProcess.logger.log(Level.INFO, "Formatting it to have two decimals and Rs. then setting it \n");
             
         }else if(time.equals("This Week")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
             profitNum.setText("");
+            LogProcess.logger.log(Level.INFO, "Emptying the numbers before adding new ones \n");
             
             // Sold Items
             int weekSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1)");
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             salesNum.setText(weekSalesCount + "");
-            System.out.println("Sales this week: " + weekSalesCount);
+            LogProcess.logger.log(Level.INFO, "Setting the data inside the label \n");
+            
             
             // Revenue
             double weekRevenue = getRevenue(
@@ -545,8 +592,11 @@ public class DashBoard extends javax.swing.JFrame {
                 "JOIN bill b ON si.bill_id = b.bill_id " +
                 "WHERE YEARWEEK(b.datetime, 1) = YEARWEEK(CURDATE(), 1);"
             );
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             String formatted = String.format("Rs. %.2f", weekRevenue);
+            LogProcess.logger.log(Level.INFO, "Formatting it to have two decimals and Rs. \n");
             transactionNum.setText(formatted);
+            LogProcess.logger.log(Level.INFO, "Setting number as the text \n");
             
             // Profit
             double weekProfit = getProfit(
@@ -556,13 +606,16 @@ public class DashBoard extends javax.swing.JFrame {
                 "JOIN product_batches pb ON si.stock_id = pb.batch_id " +
                 "WHERE YEARWEEK(b.datetime, 1) = YEARWEEK(CURDATE(), 1);"
             );
+            LogProcess.logger.log(Level.INFO, "Getting data to a variable \n");
             profitNum.setText(String.format("Rs. %.2f", weekProfit));
+            LogProcess.logger.log(Level.INFO, "Formatting it to have two decimals and Rs. then setting it \n");
             
         }else if(time.equals("This Month")){
             // Clearing items before editing
             salesNum.setText("");
             transactionNum.setText("");
             profitNum.setText("");
+            LogProcess.logger.log(Level.INFO, "Emptying the numbers before adding new ones \n");
             
             // Sold Items
             int monthSalesCount = getCountForPeriod("SELECT SUM(quantity) AS total FROM sold_items si JOIN bill b ON si.bill_id = b.bill_id WHERE YEAR(b.datetime) = YEAR(CURDATE()) AND MONTH(b.datetime) = MONTH(CURDATE());");
