@@ -149,11 +149,13 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         FlatMacLightLaf.setup();
+        LogProcess.logger.info("Theme Loaded! \n");
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginGUI().setVisible(true);
+                LogProcess.logger.info("Window set as Visible \n");
             }
         });
     }
