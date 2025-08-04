@@ -4,11 +4,9 @@
  */
 package gui;
 
-import backend.ComboItem;
 import backend.ConnectionManager;
 import backend.LogProcess;
 import backend.Session;
-import backend.User;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -370,6 +367,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void addProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductsActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Add Product Button\n");
         AddProduct product = new AddProduct();
         LogProcess.logger.log(Level.INFO, "Loaded Add Product Screen\n");
         product.setVisible(true);
@@ -382,6 +380,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void billingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Billing Button\n");
         BillingSystem billing = new BillingSystem();
         LogProcess.logger.log(Level.INFO, "Loaded Billing System Screen\n");
         billing.setVisible(true);
@@ -394,6 +393,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void addCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Add Category Button\n");
         AddCategory category = new AddCategory();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Add Category Screen\n");
         category.setVisible(true);
@@ -405,6 +405,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void addCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Add Customer Button\n");
         AddCustomer category = new AddCustomer();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Add Category Screen\n");
         category.setVisible(true);
@@ -417,6 +418,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Add Stock Button\n");
         AddStock stock = new AddStock();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Add Stock Screen\n");
         stock.setVisible(true);
@@ -429,6 +431,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void updateProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProductsActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Update Products Button\n");
         UpdateProduct updateProduct = new UpdateProduct();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Update Product Screen\n");
         updateProduct.setVisible(true);
@@ -441,6 +444,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void updateCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCategoryActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Update Category Button\n");
         UpdateCategory updateCategory = new UpdateCategory();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Update Category Screen\n");
         updateCategory.setVisible(true);
@@ -453,6 +457,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void updateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustomerActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Update Customer Button\n");
         UpdateCustomer updateCustomer = new UpdateCustomer();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Update Customer Screen\n");
         updateCustomer.setVisible(true);
@@ -465,6 +470,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void billsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billsReportActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Report 1 Button\n");
         BillingReportGUI billingReport = new BillingReportGUI();  // or any other JFrame
         LogProcess.logger.log(Level.INFO, "Loaded Billing Report Screen\n");
         billingReport.setVisible(true);
@@ -477,6 +483,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void boughtByCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boughtByCustomerReportActionPerformed
         // TODO add your handling code here:
+        LogProcess.logger.log(Level.INFO, "Clicked Report 2 Button\n");
         ItemsBoughtReportGUI bought = new ItemsBoughtReportGUI();
         LogProcess.logger.log(Level.INFO, "Loaded Items Bought Report Screen\n");
         bought.setVisible(true);

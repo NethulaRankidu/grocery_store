@@ -4,8 +4,10 @@
  */
 package gui;
 
+import backend.LogProcess;
 import backend.ProductDAO;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
 
 /**
  *
@@ -120,6 +122,7 @@ public class AddCategory extends javax.swing.JFrame {
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         // TODO add your handling code here:
         String cat = categoryNameBar.getText();
+        LogProcess.logger.log(Level.INFO, "Selected Category Text");
         
         ProductDAO dao = new ProductDAO();  // class holding above methods
         dao.addCategory(cat);
@@ -129,6 +132,7 @@ public class AddCategory extends javax.swing.JFrame {
         // TODO add your handling code here:
         DashBoard dashboard = new DashBoard();  // or any other JFrame
         dashboard.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Went back to dashboard");
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
@@ -144,6 +148,7 @@ public class AddCategory extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddCategory().setVisible(true);
+                LogProcess.logger.log(Level.INFO, "Made the screen visible");
             }
         });
     }

@@ -11,8 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
+import backend.LogProcess;
 import backend.ProductDAO;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
 
 
 /**
@@ -27,6 +29,7 @@ public class AddCustomer extends javax.swing.JFrame {
     public AddCustomer() {
         initComponents();
         loadCategoriesIntoComboBox();
+        LogProcess.logger.log(Level.INFO, "Loaded categories into ComboBox");
     }
 
     /**
@@ -241,14 +244,17 @@ public class AddCustomer extends javax.swing.JFrame {
         String email = emailBar.getText();
         String birthyr = birthYearBar.getText();
         ComboItem gender = (ComboItem) genderCombo.getSelectedItem();
+        LogProcess.logger.log(Level.INFO, "Selected details required to Add a customer");
         
         System.out.println("Name: " + name);
         System.out.println("Phone Number: " + phonenum);
         System.out.println("Email: " + email);
         System.out.println("Birth Year: " + birthyr);
         System.out.println("Gender ID: " + gender.getValue());
+        LogProcess.logger.log(Level.INFO, "Printed them on console");
 
         ProductDAO dao = new ProductDAO();  // class holding above methods
+        LogProcess.logger.log(Level.INFO, "Calling the function");
         dao.addCustomer(name, phonenum, email, birthyr, gender.getValue());
     }//GEN-LAST:event_jButton1ActionPerformed
 

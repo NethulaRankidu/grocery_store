@@ -25,6 +25,7 @@ public class LoginGUI extends javax.swing.JFrame {
     public LoginGUI() {
         initComponents();
         new LogProcess();
+        LogProcess.logger.info("Working directory: " + System.getProperty("user.dir") + "\nLog file will be stored as app.log in the above directory \n");
         LogProcess.logger.info("Login GUI Started Successfully! \n");
     }
 

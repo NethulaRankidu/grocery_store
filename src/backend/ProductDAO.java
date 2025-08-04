@@ -1,6 +1,7 @@
 package backend;
 
 import backend.StockBatchItem;
+import java.util.logging.Level;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -14,14 +15,17 @@ import javax.swing.JOptionPane;
 public class ProductDAO {
     public void deleteProduct(int productId) {
         String sql = "DELETE FROM products WHERE product_id = ?";
+        SQLException log;
         try (Connection conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, productId);
             int rows = ps.executeUpdate();
             System.out.println(rows + " product(s) deleted.");
+            LogProcess.logger.log(Level.INFO, "{0} product(s) deleted.", rows);
         } catch (SQLException e) {
             e.printStackTrace();
+            LogProcess.logger.log(Level.WARNING, "Error deleting product", e);
         }
     }
 
@@ -32,9 +36,10 @@ public class ProductDAO {
 
             ps.setString(1, barcode);
             ResultSet rs = ps.executeQuery();
-            
+            LogProcess.logger.log(Level.INFO, "Excecuted row");
         } catch (SQLException e) {
             e.printStackTrace();
+            LogProcess.logger.log(Level.WARNING, "Error finding product", e);
         }
         return null;
     }
