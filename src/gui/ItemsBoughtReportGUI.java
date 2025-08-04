@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import backend.LogProcess;
+import java.util.logging.Level;
 
 /**
  *
@@ -163,6 +165,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
             generateBoughtItems(selectedId);
         }else{
             JOptionPane.showMessageDialog(null, "Please select a customer");
+            LogProcess.logger.log(Level.WARNING, "Tried to generate a report, but customer not selected");
         }
     }//GEN-LAST:event_addCategoryButtonActionPerformed
 
@@ -170,6 +173,7 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         DashBoard dashboard = new DashBoard();  // or any other JFrame
         dashboard.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Went to dashaboard");
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
@@ -192,11 +196,13 @@ public class ItemsBoughtReportGUI extends javax.swing.JFrame {
                 model.setColumnIdentifiers(new Object[] {
                     "Datetime", "Product Name", "Unit Price", "Quantity", "Amount"
                 });
+                LogProcess.logger.log(Level.INFO, "Generated the table model");
 
                 jTable2.setModel(model); // your JTable instance
 
             } catch (SQLException e) {
                 e.printStackTrace(); // Or show in a dialog
+                LogProcess.logger.log(Level.WARNING, "An error occured", e);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a Bill");

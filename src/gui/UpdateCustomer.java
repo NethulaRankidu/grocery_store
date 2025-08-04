@@ -12,7 +12,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import backend.ComboItem;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-
+import backend.LogProcess;
+import java.util.logging.Level;
 
 /**
  *
@@ -269,6 +270,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
 
                 int rows = ps.executeUpdate();
                 System.out.println("Customer Successfully Updated!");
+                LogProcess.logger.log(Level.INFO, "Customer Successfully Updated!");
                 JOptionPane.showMessageDialog(null, "Customer Successfully Updated!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -286,6 +288,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
         DashBoard dashboard = new DashBoard();  // or any other JFrame
         dashboard.setVisible(true);
+        LogProcess.logger.log(Level.INFO, "Went to dashaboard");
 
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
@@ -356,6 +359,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
+            LogProcess.logger.log(Level.WARNING, "An SQLException Occured", e);
         }
     }
     
@@ -381,6 +385,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading customers: " + e.getMessage());
+            LogProcess.logger.log(Level.WARNING, "An SQLException Occured", e);
         }
     }
     
@@ -429,6 +434,7 @@ public class UpdateCustomer extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading customer details: " + e.getMessage());
+            LogProcess.logger.log(Level.WARNING, "An SQLException Occured", e);
         }
     }
 

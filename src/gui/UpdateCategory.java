@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import backend.LogProcess;
+import java.util.logging.Level;
 
 /**
  *
@@ -162,6 +164,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading catgories: " + e.getMessage());
+            LogProcess.logger.log(Level.WARNING, "Error loading catgories: ", e);
         }
     }
     
@@ -184,6 +187,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading category details: " + e.getMessage());
+            LogProcess.logger.log(Level.WARNING, "Error loading catgories: ", e);
         }
     }
     
@@ -211,6 +215,7 @@ public class UpdateCategory extends javax.swing.JFrame {
                 categoryNameBar.setText("");
             } catch (SQLException e) {
                 e.printStackTrace();
+                LogProcess.logger.log(Level.WARNING, "An SQL Exception Occured: ", e);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a customer", "Insert Failed", JOptionPane.WARNING_MESSAGE);
@@ -222,6 +227,7 @@ public class UpdateCategory extends javax.swing.JFrame {
         DashBoard dashboard = new DashBoard();  // or any other JFrame
         dashboard.setVisible(true);
 
+        LogProcess.logger.log(Level.INFO, "Going back to dashboard");
         // Close the current frame
         this.dispose(); // closes the frame that this button is part of
     }//GEN-LAST:event_backButtonActionPerformed
